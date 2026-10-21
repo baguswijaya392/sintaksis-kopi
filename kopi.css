@@ -1,0 +1,3140 @@
+/* =========================================================
+   SINTAKSIS KOPI — KODE 01 NEW UPDATE
+   PEMBARUAN 01 — CSS
+
+   Perbaikan yang diterapkan di CSS (ringkasan):
+   [CSS-FIX-01]  Fallback .reveal jika JS gagal (html:not(.js-loaded))
+   [CSS-FIX-02]  Skip-link style untuk aksesibilitas
+   [CSS-FIX-03]  Perbaikan selector @media 380px (bagian coffee)
+   [CSS-FIX-04]  Hapus dead code (.hero-desc yang tidak dipakai HTML)
+   [CSS-FIX-05]  Coffee tilt: hapus konflik CSS :hover vs JS inline
+   [CSS-FIX-06]  Focus-visible untuk navigasi keyboard
+   [CSS-FIX-07]  Guard prefers-reduced-motion untuk cursor
+   [CSS-FIX-08]  @media 380px digabung jadi satu blok (di bagian 3)
+
+========================================================= */
+
+/* =========================================================
+   BASE / RESET
+========================================================= */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 90px
+}
+
+body {
+  background: #0b0907;
+  color: #eee7df;
+  font-family: "Manrope",sans-serif;
+  overflow-x: hidden
+}
+
+body.menu-open {
+  overflow: hidden
+}
+
+a {
+  color: inherit;
+  text-decoration: none
+}
+
+button {
+  font: inherit;
+  color: inherit
+}
+
+::selection {
+  background: #eee7df;
+  color: #0b0907
+}
+
+img {
+  display: block;
+  max-width: 100%
+}
+
+/* =========================================================
+   [CSS-FIX-01] FALLBACK .reveal — JIKA JS GAGAL
+
+   Masalah: .reveal default opacity: 0. Kalau JS gagal load
+   (CDN down, error syntax, dsb), seluruh halaman bisa
+   "kosong" karena .visible tidak pernah ditambahkan.
+
+   Solusi: secara default tampilkan .reveal, dan sembunyikan
+   hanya jika html punya class .js-loaded (ditambahkan JS
+   di akhir). Jadi kalau JS tidak jalan, konten tetap tampil.
+========================================================= */
+
+html:not(.js-loaded) .reveal {
+  opacity: 1;
+  transform: none;
+}
+
+/* =========================================================
+   [CSS-FIX-02] SKIP LINK — AKSESIBILITAS KEYBOARD
+
+   Link tersembunyi, muncul saat difokus (Tab pertama kali).
+   Memungkinkan pengguna keyboard langsung lompat ke konten.
+========================================================= */
+
+.skip-link {
+  position: absolute;
+  top: -100px;
+  left: 7vw;
+  z-index: 10000;
+  padding: 10px 16px;
+  background: #eee7df;
+  color: #0b0907;
+  font: 11px "DM Mono", monospace;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  transition: top .25s ease;
+}
+
+.skip-link:focus {
+  top: 12px;
+  outline: 2px solid #c7a27a;
+  outline-offset: 2px;
+}
+
+/* =========================================================
+   [CSS-FIX-06] FOCUS-VISIBLE — NAVIGASI KEYBOARD
+
+   Memberi outline jelas untuk semua elemen interaktif
+   saat difokus lewat keyboard (bukan mouse).
+========================================================= */
+
+:focus-visible {
+  outline: 2px solid #c7a27a;
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+button:focus:not(:focus-visible),
+a:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* =========================================================
+   CUSTOM CURSOR
+========================================================= */
+
+.cursor {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #eee7df;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%,-50%);
+  mix-blend-mode: difference;
+  transition: width .25s,height .25s,background .25s
+}
+
+.cursor.hover {
+  width: 17px;
+  height: 17px
+}
+
+.cursor-smoke {
+  position: fixed;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9998;
+  background: rgba(238,231,223,.25);
+  filter: blur(5px);
+  transform: translate(-50%,-50%);
+}
+
+/* =========================================================
+   NAVBAR / NAVIGATION
+========================================================= */
+
+.navbar {
+  position: fixed;
+  z-index: 9000;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 88px;
+  padding: 0 7vw;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(238,231,223,.1);
+  transition: height .5s ease,background .5s ease,backdrop-filter .5s ease
+}
+
+.navbar.scrolled {
+  height: 70px;
+  background: rgba(11,9,7,.78);
+  backdrop-filter: blur(18px);
+  border-bottom-color: rgba(238,231,223,.16)
+}
+
+/* =========================================================
+   NAVIGATION ELEMENTS
+========================================================= */
+
+.logo {
+  font-family: "Manrope", sans-serif;
+  font-size: 17px;
+  font-weight: 800;
+  letter-spacing: -.05em;
+  text-decoration: none;
+  color: #eee7df; /* Warna putih tulang */
+  display: inline-block;
+}
+
+/* Bagian KOPI dibuat berwarna Emas/Gold */
+.logo span {
+  font-family: "DM Mono", monospace;
+  font-size: .68em;
+  letter-spacing: .14em;
+  margin-left: 5px;
+  color: #c7a27a; /* Warna emas kopi */
+  font-weight: 500;
+}
+
+.desktop-nav {
+  display: flex;
+  gap: 30px;
+  margin-left: auto;
+  margin-right: 35px
+}
+
+.nav-link {
+  position: relative;
+  font: 11px "DM Mono",monospace;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  opacity: .58;
+  transition: opacity .3s
+}
+
+.nav-link:after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -8px;
+  width: 100%;
+  height: 1px;
+  background: #eee7df;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform .35s ease
+}
+
+.nav-link:hover,.nav-link.active {
+  opacity: 1
+}
+
+.nav-link:hover:after,.nav-link.active:after {
+  transform: scaleX(1);
+  transform-origin: left
+}
+
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 24px
+}
+
+.nav-order {
+  font: 11px "DM Mono",monospace;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  gap: 10px
+}
+
+.nav-order span {
+  font-size: 17px;
+  transition: transform .3s
+}
+
+.nav-order:hover span {
+  transform: translate(3px,-3px)
+}
+
+.menu-toggle {
+  width: 36px;
+  height: 36px;
+  padding: 7px;
+  border: 0;
+  background: transparent;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  cursor: pointer
+}
+
+.menu-toggle span {
+  display: block;
+  width: 22px;
+  height: 1px;
+  background: #eee7df;
+  transition: transform .45s ease,opacity .3s,width .35s
+}
+
+.menu-toggle span:nth-child(2) {
+  width: 15px;
+  margin-left: auto
+}
+
+.menu-toggle:hover span:nth-child(2) {
+  width: 22px
+}
+
+.menu-toggle.is-open span:nth-child(1) {
+  transform: translateY(6px) rotate(45deg)
+}
+
+.menu-toggle.is-open span:nth-child(2) {
+  opacity: 0
+}
+
+.menu-toggle.is-open span:nth-child(3) {
+  transform: translateY(-6px) rotate(-45deg)
+}
+
+/* =========================================================
+   HERO / INTRO
+========================================================= */
+
+.hero {
+  min-height: 100vh;
+  padding: 150px 7vw 80px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  position: relative;
+  overflow: hidden
+}
+
+.hero:before {
+  content: "";
+  position: absolute;
+  width: 55vw;
+  height: 55vw;
+  border-radius: 50%;
+  border: 1px solid rgba(238,231,223,.055);
+  right: -24vw;
+  top: 8vh
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  padding-right: 4vw
+}
+
+.hero-kicker,.eyebrow {
+  font: 10px "DM Mono",monospace;
+  letter-spacing: .16em;
+  color: rgba(238,231,223,.5)
+}
+
+.hero-kicker {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 55px
+}
+
+.hero-kicker span {
+  width: 28px;
+  height: 1px;
+  background: #eee7df
+}
+
+.hero-title-wrap {
+  position: relative
+}
+
+.hero-index {
+  font: 10px "DM Mono",monospace;
+  opacity: .4;
+  margin-bottom: 13px
+}
+
+.hero h1 {
+  font-size: clamp(72px,9.2vw,150px);
+  line-height: .79;
+  letter-spacing: -.085em;
+  font-weight: 700
+}
+
+.hero h1 em,.section-intro h2 em,.story-content h2 em,.experience h2 em,.contact h2 em {
+  font-family: "Playfair Display",serif;
+  font-weight: 500;
+  letter-spacing: -.07em
+}
+
+.hero-bottom {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 30px;
+  margin-top: 65px;
+  max-width: 670px
+}
+
+.hero-tagline {
+  font: 11px "DM Mono",monospace;
+  letter-spacing: .1em
+}
+
+/* [CSS-FIX-04] Hapus dead code .hero-desc — tidak ada di HTML.
+   (Dihapus dari file untuk kerapian.) */
+
+.hero-visual {
+  height: min(650px,70vh);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative
+}
+
+.hero-circle {
+  width: min(38vw,560px);
+  height: min(38vw,560px);
+  min-width: 330px;
+  min-height: 330px;
+  border-radius: 50%;
+  position: relative;
+  display: grid;
+  place-items: center;
+  animation: heroFloat 7s ease-in-out infinite
+}
+
+.hero-circle-inner {
+  width: 82%;
+  height: 82%;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 1px solid rgba(238,231,223,.2);
+  box-shadow: 0 0 0 1px rgba(238,231,223,.03),0 35px 90px rgba(0,0,0,.5)
+}
+
+.hero-circle-inner:after {
+  content: "";
+  position: absolute;
+  inset: 9%;
+  border-radius: 50%;
+  box-shadow: inset 0 0 70px rgba(0,0,0,.55);
+  pointer-events: none
+}
+
+.hero-circle-inner img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 1.2s cubic-bezier(.2,.8,.2,1)
+}
+
+.hero-circle:hover .hero-circle-inner img {
+  transform: scale(1.07)
+}
+
+.hero-orbit {
+  position: absolute;
+  border: 1px solid rgba(238,231,223,.1);
+  border-radius: 50%;
+  pointer-events: none
+}
+
+.orbit-one {
+  width: 91%;
+  height: 91%;
+  animation: orbitSpin 25s linear infinite
+}
+
+.orbit-two {
+  width: 110%;
+  height: 110%;
+  border-style: dashed;
+  opacity: .5;
+  animation: orbitSpin 35s linear infinite reverse
+}
+
+.hero-circle-label {
+  position: absolute;
+  font: 9px "DM Mono",monospace;
+  letter-spacing: .15em;
+  color: rgba(238,231,223,.55);
+  white-space: nowrap
+}
+
+.label-top {
+  top: 3%;
+  left: 50%;
+  transform: translateX(-50%)
+}
+
+.label-bottom {
+  bottom: 3%;
+  left: 50%;
+  transform: translateX(-50%)
+}
+
+.hero-floating-note {
+  position: absolute;
+  right: 0;
+  bottom: 10%;
+  font: 10px "DM Mono",monospace;
+  line-height: 1.7;
+  letter-spacing: .12em;
+  text-align: right;
+  opacity: .4
+}
+
+.scroll-indicator {
+  position: absolute;
+  left: 7vw;
+  bottom: 35px;
+  font: 9px "DM Mono",monospace;
+  letter-spacing: .13em;
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  opacity: .45
+}
+
+.scroll-line {
+  display: block;
+  width: 42px;
+  height: 1px;
+  background: #eee7df
+}
+
+/* =========================================================
+   MARQUEE
+========================================================= */
+
+.marquee {
+  overflow: hidden;
+  border-top: 1px solid rgba(238,231,223,.1);
+  border-bottom: 1px solid rgba(238,231,223,.1);
+  padding: 20px 0
+}
+
+.marquee-track {
+  width: max-content;
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  animation: marquee 25s linear infinite
+}
+
+.marquee span {
+  font-size: clamp(28px,4vw,62px);
+  font-weight: 700;
+  letter-spacing: -.06em;
+  white-space: nowrap
+}
+
+.marquee i {
+  font: 25px "Playfair Display",serif;
+  opacity: .45
+}
+
+/* =========================================================
+   STATS
+========================================================= */
+
+.stats {
+  padding: 60px 7vw;
+  display: grid;
+  grid-template-columns: repeat(4,1fr);
+  border-bottom: 1px solid rgba(238,231,223,.1)
+}
+
+.stat {
+  padding: 0 25px;
+  border-left: 1px solid rgba(238,231,223,.1)
+}
+
+.stat:first-child {
+  padding-left: 0;
+  border-left: 0
+}
+
+.stat strong {
+  display: block;
+  font-size: 55px;
+  line-height: 1;
+  font-weight: 500;
+  letter-spacing: -.07em
+}
+
+.stat strong:after {
+  content: "+"
+}
+
+.stat span {
+  display: block;
+  margin-top: 12px;
+  font: 9px "DM Mono",monospace;
+  letter-spacing: .13em;
+  opacity: .42
+}
+
+/* =========================================================
+   COFFEE / BEST SELLERS
+========================================================= */
+
+.coffee-section,.story,.experience,.contact {
+  position: relative
+}
+
+.coffee {
+  padding: 150px 7vw
+}
+
+.section-intro {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 50px;
+  margin-bottom: 90px
+}
+
+.section-intro h2,.experience h2 {
+    font-size: clamp(55px,7.5vw,112px);
+    line-height: .86;
+    letter-spacing: -.075em;
+    margin-top: 20px;
+}
+
+.section-description {
+  max-width: 310px;
+  font-size: 13px;
+  line-height: 1.8;
+  color: rgba(238,231,223,.48);
+  padding-bottom: 7px
+}
+
+.coffee-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 55px 20px;
+}
+
+.coffee-item {
+  position: relative;
+  transition: transform .25s ease
+}
+
+.coffee-number {
+  position: absolute;
+  top: 17px;
+  left: 17px;
+  z-index: 3;
+  font: 9px "DM Mono",monospace;
+  background: #0b0907;
+  padding: 7px 9px
+}
+
+.coffee-image-wrap {
+  position: relative;
+  height: clamp(300px, 30vw, 420px);
+  overflow: hidden;
+  background: #14100d
+}
+
+.coffee-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform .8s cubic-bezier(.2,.8,.2,1),filter .5s
+}
+
+/* [CSS-FIX-05] Coffee tilt:
+   Sebelumnya CSS `:hover` scale(1.045) BENTROK dengan JS
+   inline transform (perspective + rotateX/Y). Sekarang
+   CSS hanya menyediakan fallback scale untuk pengguna
+   tanpa JS/pointer kasar. JS akan menimpa saat hover di
+   perangkat pointer:fine.
+   Hasil: tidak ada dua sumber transform yang saling
+   timpa secara tak terduga. */
+.coffee-item:hover .coffee-image {
+  transform: scale(1.045)
+}
+
+.coffee-tag {
+  position: absolute;
+  right: 15px;
+  top: 15px;
+  border: 1px solid rgba(238,231,223,.35);
+  padding: 8px 10px;
+  font: 8px "DM Mono",monospace;
+  letter-spacing: .1em
+}
+
+/* =========================================================
+   COFFEE INFO — REARRANGED
+========================================================= */
+
+.coffee-info {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: start;
+  column-gap: 15px;
+  row-gap: 10px;
+  margin-top: 18px;
+}
+
+.coffee-main {
+  display: contents;
+}
+
+.coffee-info h3 {
+  font-size: 18px;
+  font-weight: 500;
+  letter-spacing: -.04em;
+  margin: 0;
+}
+
+.coffee-info p {
+  font: 9px "DM Mono", monospace;
+  letter-spacing: .1em;
+  opacity: .4;
+  margin: 0;
+  text-transform: uppercase;
+  white-space: nowrap;
+  align-self: center;
+}
+
+.coffee-price {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.coffee-price span {
+  display: block;
+  font: 13px "Courier New", monospace;
+  white-space: nowrap;
+}
+
+.coffee-price span:nth-child(2) {
+  margin-left: -1px;
+}
+
+.coffee-footer {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 35px;
+  margin-top: 120px;
+}
+
+/* =========================================================
+   SINTAKSIS KOPI — KODE 01 NEW UPDATE
+   PEMBARUAN 01 — CSS BAGIAN 2/3
+   Isi: Story, Experience, Contact
+========================================================= */
+
+/* =========================================================
+   SHARED BUTTONS / LINKS
+========================================================= */
+
+.main-btn,.story-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  border-bottom: 1px solid rgba(238,231,223,.5);
+  padding: 0 0 9px;
+  font: 10px "DM Mono",monospace;
+  letter-spacing: .1em;
+  transition: border-color .3s
+}
+
+.main-btn span,.story-btn span {
+  font-size: 15px;
+  transition: transform .3s
+}
+
+.main-btn:hover,.story-btn:hover {
+  border-color: #eee7df
+}
+
+.main-btn:hover span,.story-btn:hover span {
+  transform: translate(4px,-4px)
+}
+
+/* =========================================================
+   STORY SECTION
+========================================================= */
+
+.story {
+    position: relative;
+
+    min-height: 100vh;
+
+    padding: 150px 7vw 130px;
+
+    background: #100d0a;
+
+    overflow: hidden;
+}
+
+/* =========================================================
+   STORY HEADER
+========================================================= */
+
+.story-heading {
+    position: relative;
+
+    width: 100%;
+
+    margin-bottom: 90px;
+
+    z-index: 2;
+}
+
+.story-section-label {
+    display: block;
+
+    margin-bottom: 28px;
+
+    font-family: "DM Mono", monospace;
+
+    font-size: 10px;
+    font-weight: 400;
+
+    letter-spacing: .16em;
+
+    color: rgba(238, 231, 223, .48);
+}
+
+.story-heading h2 {
+    margin: 0;
+
+    max-width: 900px;
+
+    font-size: clamp(70px, 10vw, 150px);
+
+    line-height: .78;
+
+    letter-spacing: -.085em;
+
+    font-weight: 700;
+
+    text-transform: uppercase;
+}
+
+.story-heading h2 em {
+    display: block;
+
+    font-family: "Playfair Display", serif;
+
+    font-size: .92em;
+
+    font-style: italic;
+    font-weight: 500;
+
+    letter-spacing: -.07em;
+
+    color: #c7a27a;
+}
+
+.story-lead {
+    position: relative;
+
+    max-width: 560px;
+
+    margin-top: 38px;
+    margin-left: 4px;
+
+    padding-left: 20px;
+
+    font-family: "Playfair Display", serif;
+
+    font-size: clamp(20px, 2vw, 29px);
+
+    font-style: italic;
+
+    line-height: 1.35;
+
+    color: rgba(238, 231, 223, .65);
+}
+
+.story-lead::before {
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+    top: 6px;
+    bottom: 6px;
+
+    width: 1px;
+
+    background: rgba(199, 162, 122, .65);
+}
+
+/* =========================================================
+   STORY MAIN
+========================================================= */
+
+.story-main {
+    display: grid;
+
+    grid-template-columns:
+        minmax(360px, .85fr)
+        minmax(0, 1.15fr);
+
+    gap: clamp(60px, 8vw, 120px);
+
+    align-items: start;
+}
+
+/* =========================================================
+   STORY IMAGE
+========================================================= */
+
+.story-visual {
+    position: sticky;
+
+    top: 120px;
+
+    width: 100%;
+    max-width: 560px;
+
+    min-width: 0;
+
+    overflow: visible;
+}
+
+.story-slider {
+    position: relative;
+
+    width: 100%;
+
+    aspect-ratio: 4 / 5;
+
+    overflow: hidden;
+
+    background: #15120f;
+}
+
+.story-slides {
+    display: flex;
+
+    width: 100%;
+    height: 100%;
+
+    will-change: transform;
+
+    transition:
+        transform 1s cubic-bezier(.77, 0, .18, 1);
+}
+
+.story-slide {
+    position: relative;
+
+    flex: 0 0 100%;
+
+    width: 100%;
+    height: 100%;
+
+    overflow: hidden;
+}
+
+.story-slide img {
+    display: block;
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+
+    filter: saturate(.72);
+
+    transform: scale(1.02);
+
+    transition:
+        transform 5s ease,
+        filter 1s ease;
+}
+
+.story-slide.active img {
+    transform: scale(1.08);
+
+    filter: saturate(.85);
+}
+
+/* =========================================================
+   STORY IMAGE OVERLAY
+========================================================= */
+
+.story-slide-overlay {
+    position: absolute;
+
+    inset: 0;
+
+    z-index: 2;
+
+    background:
+        linear-gradient(
+            180deg,
+            rgba(0, 0, 0, .03) 35%,
+            rgba(0, 0, 0, .62) 100%
+        );
+
+    pointer-events: none;
+}
+
+/* =========================================================
+   STORY IMAGE INFO
+========================================================= */
+
+.story-slider-info {
+    position: absolute;
+
+    left: 25px;
+    right: 25px;
+    bottom: 25px;
+
+    z-index: 4;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 14px;
+
+    font-family: "DM Mono", monospace;
+
+    font-size: 9px;
+
+    letter-spacing: .12em;
+}
+
+.story-slide-number {
+    font-size: 11px;
+}
+
+.story-slide-line {
+    flex: 1;
+
+    width: auto;
+    height: 1px;
+
+    background: #eee7df;
+
+    opacity: .45;
+}
+
+.story-year {
+    opacity: .5;
+}
+
+/* =========================================================
+   STORY COPY
+========================================================= */
+
+.story-copy {
+    width: 100%;
+
+    min-width: 0;
+
+    padding-top: 5px;
+}
+
+.story-block {
+    position: relative;
+
+    width: 100%;
+    max-width: 720px;
+
+    margin: 0 0 78px;
+
+    padding:
+        0 0 78px 2px;
+
+    border-bottom:
+        1px solid rgba(238, 231, 223, .12);
+
+    opacity: 0;
+
+    transform: translateY(45px);
+
+    transition:
+        opacity .9s ease,
+        transform .9s cubic-bezier(.2, .8, .2, 1);
+}
+
+.story-block:last-child {
+    margin-bottom: 0;
+}
+
+/* =========================================================
+   STORY BLOCK LABEL
+========================================================= */
+
+.story-block-label {
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    margin-bottom: 24px;
+
+    font-family: "DM Mono", monospace;
+
+    font-size: 9px;
+    font-weight: 400;
+
+    letter-spacing: .18em;
+
+    text-transform: uppercase;
+
+    color: rgba(238, 231, 223, .48);
+}
+
+.story-block-label span:first-child {
+    color: #c7a27a;
+}
+
+.story-block-line {
+    width: 36px;
+    height: 1px;
+
+    background:
+        rgba(199, 162, 122, .42);
+
+    transition:
+        width .4s ease,
+        background .4s ease;
+}
+
+/* =========================================================
+   STORY BLOCK TITLE
+========================================================= */
+
+.story-block h3 {
+    margin: 0 0 25px;
+
+    font-family: "Playfair Display", serif;
+
+    font-size: clamp(32px, 3.5vw, 52px);
+
+    font-weight: 400;
+
+    line-height: 1;
+
+    letter-spacing: -.035em;
+
+    color: #eee7df;
+
+    transition:
+        color .35s ease,
+        transform .35s ease;
+}
+
+/* =========================================================
+   STORY PARAGRAPH
+========================================================= */
+
+.story-block p {
+    max-width: 650px;
+
+    margin: 0 0 21px;
+
+    font-size: 14px;
+
+    line-height: 1.95;
+
+    color:
+        rgba(238, 231, 223, .66);
+}
+
+.story-block p:last-child {
+    margin-bottom: 0;
+}
+
+/* =========================================================
+   STORY HOVER
+========================================================= */
+
+@media (hover: hover) and (pointer: fine) {
+
+    .story-block:hover h3 {
+        color: #c7a27a;
+
+        transform: translateX(5px);
+    }
+
+    .story-block:hover .story-block-line {
+        width: 52px;
+
+        background:
+            rgba(199, 162, 122, .8);
+    }
+}
+
+/* =========================================================
+   STORY REVEAL
+========================================================= */
+
+.story-heading.reveal,
+.story-visual.reveal,
+.story-footer.reveal {
+    opacity: 0;
+
+    transform: translateY(45px);
+
+    transition:
+        opacity .9s ease,
+        transform .9s cubic-bezier(.2, .8, .2, 1);
+}
+
+.story-heading.reveal.visible,
+.story-visual.reveal.visible,
+.story-footer.reveal.visible {
+    opacity: 1;
+
+    transform: translateY(0);
+}
+
+.story-block.reveal.visible {
+    opacity: 1;
+
+    transform: translateY(0);
+}
+
+/* =========================================================
+   STORY STAGGER
+========================================================= */
+
+.story-copy .story-block:nth-child(1) {
+    transition-delay: .08s;
+}
+
+.story-copy .story-block:nth-child(2) {
+    transition-delay: .18s;
+}
+
+.story-copy .story-block:nth-child(3) {
+    transition-delay: .28s;
+}
+
+.story-copy .story-block:nth-child(4) {
+    transition-delay: .38s;
+}
+
+/* =========================================================
+   STORY FOOTER
+========================================================= */
+
+.story-footer {
+    display: flex;
+
+    align-items: flex-end;
+
+    justify-content: space-between;
+
+    gap: 40px;
+
+    margin-top: 105px;
+
+    padding-top: 32px;
+
+    border-top:
+        1px solid rgba(238, 231, 223, .12);
+}
+
+.story-footer p {
+    max-width: 430px;
+
+    margin: 0;
+
+    font-family: "Playfair Display", serif;
+
+    font-size: 26px;
+
+    font-style: italic;
+
+    line-height: 1.25;
+
+    color:
+        rgba(238, 231, 223, .65);
+}
+
+.story-btn {
+    flex-shrink: 0;
+}
+
+/* =========================================================
+   STORY — TABLET
+========================================================= */
+
+@media (max-width: 900px) {
+
+    .story {
+        padding:
+            120px 6vw 100px;
+    }
+
+    .story-heading {
+        margin-bottom: 65px;
+    }
+
+    .story-heading h2 {
+        font-size:
+            clamp(60px, 13vw, 110px);
+    }
+
+    .story-main {
+        grid-template-columns: 1fr;
+
+        gap: 65px;
+    }
+
+    .story-visual {
+        position: relative;
+
+        top: auto;
+
+        max-width: 650px;
+    }
+
+    .story-copy {
+        width: 100%;
+    }
+
+    .story-block {
+        max-width: 760px;
+
+        margin-bottom: 65px;
+
+        padding-bottom: 65px;
+    }
+
+    .story-footer {
+        margin-top: 75px;
+    }
+}
+
+/* =========================================================
+   STORY — MOBILE
+========================================================= */
+
+@media (max-width: 600px) {
+
+    .story {
+        padding:
+            95px 5vw 80px;
+    }
+
+    .story-heading {
+        margin-bottom: 50px;
+    }
+
+    .story-section-label {
+        margin-bottom: 22px;
+
+        font-size: 9px;
+    }
+
+    .story-heading h2 {
+        font-size:
+            clamp(52px, 16vw, 85px);
+
+        line-height: .82;
+    }
+
+    .story-lead {
+        margin-top: 28px;
+
+        padding-left: 14px;
+
+        font-size: 20px;
+    }
+
+    .story-main {
+        gap: 50px;
+    }
+
+    .story-visual {
+        width: 100%;
+    }
+
+    .story-slider {
+        aspect-ratio: 4 / 5;
+    }
+
+    .story-slider-info {
+        left: 18px;
+        right: 18px;
+        bottom: 18px;
+    }
+
+    .story-block {
+        margin-bottom: 55px;
+
+        padding-bottom: 55px;
+    }
+
+    .story-block-label {
+        gap: 9px;
+
+        margin-bottom: 20px;
+
+        font-size: 8px;
+    }
+
+    .story-block h3 {
+        font-size: 30px;
+
+        margin-bottom: 20px;
+    }
+
+    .story-block p {
+        font-size: 13px;
+
+        line-height: 1.85;
+    }
+
+    .story-footer {
+        flex-direction: column;
+
+        align-items: flex-start;
+
+        gap: 30px;
+
+        margin-top: 65px;
+    }
+
+    .story-footer p {
+        font-size: 22px;
+    }
+}
+
+/* =========================================================
+   STORY — REDUCED MOTION
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .story-heading.reveal,
+    .story-visual.reveal,
+    .story-block.reveal,
+    .story-footer.reveal {
+        opacity: 1;
+
+        transform: none;
+
+        transition: none;
+    }
+}
+
+/* =========================================================
+   EXPERIENCE
+========================================================= */
+
+.experience {
+  padding: 150px 7vw
+}
+
+.experience-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 60px;
+  margin-bottom: 100px
+}
+
+.experience-head>p {
+  max-width: 330px;
+  font-size: 13px;
+  line-height: 1.9;
+  color: rgba(238,231,223,.48)
+}
+
+.experience-list {
+  border-top: 1px solid rgba(238,231,223,.15)
+}
+
+.experience-row {
+  display: grid;
+  grid-template-columns: 80px 1fr 180px 30px;
+  align-items: center;
+  gap: 20px;
+  padding: 27px 0;
+  border-bottom: 1px solid rgba(238,231,223,.15);
+  transition: padding .35s,background .35s
+}
+
+.experience-row:hover {
+  padding-left: 15px;
+  padding-right: 15px;
+  background: rgba(238,231,223,.025)
+}
+
+.experience-row>span,.experience-row>p {
+  font: 9px "DM Mono",monospace;
+  opacity: .4
+}
+
+.experience-row h3 {
+  font-size: clamp(25px,3vw,42px);
+  font-weight: 500;
+  letter-spacing: -.05em
+}
+
+.experience-row b {
+  font-weight: 400;
+  font-size: 18px;
+  text-align: right;
+  transition: transform .3s
+}
+
+.experience-row:hover b {
+  transform: translate(4px,-4px)
+}
+
+/* =========================================================
+   CONTACT — EDITORIAL / DIAGONAL BRAND COMPOSITION
+========================================================= */
+
+.contact {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+
+  min-height: 88vh;
+  padding: 120px 7vw 80px;
+
+  background:
+    radial-gradient(
+      circle at 72% 20%,
+      rgba(199, 162, 122, .075),
+      transparent 28%
+    ),
+    radial-gradient(
+      circle at 18% 82%,
+      rgba(199, 162, 122, .055),
+      transparent 24%
+    ),
+    linear-gradient(
+      135deg,
+      #eee7df 0%,
+      #f1ebe4 48%,
+      #e9e1d8 100%
+    );
+
+  color: #0b0907;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.contact::marker {
+  display: none;
+}
+
+.contact::before {
+  content: "SYNTAX";
+
+  position: absolute;
+  top: 9%;
+  right: 6vw;
+
+  z-index: -1;
+
+  font-family: "Manrope", sans-serif;
+  font-size: clamp(70px, 11vw, 180px);
+  font-weight: 800;
+  line-height: .8;
+  letter-spacing: -.09em;
+  text-transform: uppercase;
+
+  color: rgba(11, 9, 7, .055);
+
+  white-space: nowrap;
+  pointer-events: none;
+
+  transform: rotate(-3deg);
+
+  animation: contactGhostTop 1.4s cubic-bezier(.2,.8,.2,1) both;
+}
+
+.contact::after {
+  content: "COFFEE";
+
+  position: absolute;
+  bottom: 7%;
+  left: 5vw;
+
+  z-index: -1;
+
+  font-family: "Manrope", sans-serif;
+  font-size: clamp(70px, 11vw, 180px);
+  font-weight: 800;
+  line-height: .8;
+  letter-spacing: -.09em;
+  text-transform: uppercase;
+
+  color: rgba(11, 9, 7, .055);
+
+  white-space: nowrap;
+  pointer-events: none;
+
+  transform: rotate(3deg);
+
+  animation: contactGhostBottom 1.4s cubic-bezier(.2,.8,.2,1) both;
+}
+
+/* =========================================================
+   CONTACT — TOP INFORMATION
+========================================================= */
+
+.contact .eyebrow {
+  position: relative;
+  z-index: 3;
+
+  color: rgba(11, 9, 7, .5);
+}
+
+.contact-top {
+  position: relative;
+  z-index: 3;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+
+  font: 9px "DM Mono", monospace;
+  letter-spacing: .13em;
+}
+
+.contact-top p {
+  margin: 0;
+}
+
+/* =========================================================
+   CONTACT — MAIN COMPOSITION
+========================================================= */
+
+.contact-main {
+  position: relative;
+  z-index: 3;
+
+  width: 100%;
+  margin: auto 0;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  padding: 90px 0 80px;
+}
+
+.contact h2 {
+  position: relative;
+
+  width: max-content;
+  max-width: 100%;
+
+  margin: 0 auto;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  font-family: "Manrope", sans-serif;
+  font-size: clamp(82px, 14vw, 220px);
+  font-weight: 800;
+
+  line-height: .72;
+  letter-spacing: -.105em;
+
+  text-transform: uppercase;
+
+  color: #0b0907;
+
+  white-space: nowrap;
+
+  transform: none;
+
+  animation: contactTitleIn 1s cubic-bezier(.2,.8,.2,1) both;
+}
+
+.contact h2 em {
+  display: block;
+
+  margin-top: .025em;
+  margin-left: .65em;
+
+  font-family: "Playfair Display", serif;
+  font-size: .94em;
+  font-style: italic;
+  font-weight: 500;
+
+  line-height: .72;
+  letter-spacing: -.09em;
+
+  color: #0b0907;
+
+  transform: none;
+
+  transition:
+    color .45s ease,
+    transform .45s cubic-bezier(.2,.8,.2,1);
+}
+
+.contact-main::before {
+  content: "";
+
+  position: absolute;
+
+  top: 50%;
+  left: 50%;
+
+  width: min(48vw, 620px);
+  height: 1px;
+
+  background: rgba(11, 9, 7, .09);
+
+  transform:
+    translate(-50%, -50%)
+    rotate(-8deg);
+
+  pointer-events: none;
+
+  z-index: -1;
+}
+
+/* =========================================================
+   CONTACT — MAIL / CTA
+========================================================= */
+
+.contact-mail {
+  position: relative;
+  z-index: 4;
+
+  display: inline-flex;
+  align-items: center;
+  gap: 20px;
+
+  margin-top: 70px;
+
+  padding-bottom: 10px;
+
+  border-bottom: 1px solid rgba(11, 9, 7, .3);
+
+  font: 13px "DM Mono", monospace;
+
+  transition:
+    border-color .35s ease,
+    transform .35s ease;
+}
+
+.contact-mail span {
+  transition: transform .35s cubic-bezier(.2,.8,.2,1);
+}
+
+.contact-mail:hover {
+  border-color: rgba(11, 9, 7, .75);
+}
+
+.contact-mail:hover span {
+  transform: translate(5px, -5px);
+}
+
+/* =========================================================
+   CONTACT — BOTTOM INFORMATION
+========================================================= */
+
+.contact-bottom {
+  position: relative;
+  z-index: 3;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+
+  font: 9px "DM Mono", monospace;
+  letter-spacing: .1em;
+
+  opacity: .5;
+}
+
+/* =========================================================
+   CONTACT — HOVER
+========================================================= */
+
+@media (hover: hover) and (pointer: fine) {
+
+  .contact h2:hover em {
+    color: #8f6847;
+    transform: translateX(.28em);
+  }
+}
+
+/* =========================================================
+   CONTACT — ANIMATIONS
+========================================================= */
+
+@keyframes contactTitleIn {
+
+  from {
+    opacity: 0;
+    transform: translateY(45px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes contactGhostTop {
+
+  from {
+    opacity: 0;
+    transform:
+      translate(35px, -20px)
+      rotate(-3deg);
+  }
+
+  to {
+    opacity: 1;
+    transform:
+      translate(0, 0)
+      rotate(-3deg);
+  }
+}
+
+@keyframes contactGhostBottom {
+
+  from {
+    opacity: 0;
+    transform:
+      translate(-35px, 20px)
+      rotate(3deg);
+  }
+
+  to {
+    opacity: 1;
+    transform:
+      translate(0, 0)
+      rotate(3deg);
+  }
+}
+
+/* =========================================================
+   CONTACT — TABLET
+========================================================= */
+
+@media (max-width: 900px) {
+
+  .contact {
+    min-height: 80vh;
+    padding: 100px 6vw 60px;
+  }
+
+  .contact-main {
+    padding: 80px 0;
+  }
+
+  .contact h2 {
+    font-size: clamp(65px, 15vw, 125px);
+  }
+
+  .contact h2 em {
+    margin-left: 1.5em;
+  }
+
+  .contact::before {
+    top: 12%;
+    right: 3vw;
+  }
+
+  .contact::after {
+    bottom: 6%;
+    left: 3vw;
+  }
+
+  .contact-main::before {
+    width: 65vw;
+  }
+}
+
+/* =========================================================
+   CONTACT — MOBILE
+========================================================= */
+
+@media (max-width: 600px) {
+
+  .contact {
+    min-height: 78vh;
+    padding: 80px 5vw 45px;
+  }
+
+  .contact-top {
+    display: block;
+  }
+
+  .contact-top p:last-child {
+    margin-top: 12px;
+  }
+
+  .contact-main {
+    margin: auto 0;
+    padding: 70px 0;
+  }
+
+  .contact h2 {
+    font-size: 22vw;
+    line-height: .74;
+
+    transform: none;
+  }
+
+  .contact h2 em {
+     margin-left: .65em;
+  }
+
+  .contact-main::before {
+    width: 78vw;
+    transform:
+      translate(-50%, -50%)
+      rotate(-10deg);
+  }
+
+  .contact::before {
+    top: 14%;
+    right: -2vw;
+
+    font-size: 22vw;
+  }
+
+  .contact::after {
+    bottom: 7%;
+    left: -2vw;
+
+    font-size: 22vw;
+  }
+
+  .contact-mail {
+    margin-top: 55px;
+    font-size: 11px;
+  }
+
+  .contact-bottom {
+    display: block;
+  }
+
+  .contact-bottom p + p {
+    margin-top: 8px;
+  }
+}
+
+/* =========================================================
+   CONTACT — REDUCED MOTION
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+  .contact h2,
+  .contact::before,
+  .contact::after {
+    animation: none;
+  }
+}
+
+/* =========================================================
+   SINTAKSIS KOPI — KODE 01 NEW UPDATE
+   PEMBARUAN 01 — CSS BAGIAN 3/3 (FINAL)
+   Isi: Footer, Menu Page, Keyframes, Responsive,
+        @media 380px digabung, Accessibility
+========================================================= */
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+.footer {
+  padding: 28px 7vw;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  border-top: 1px solid rgba(238,231,223,.1);
+  font: 8px "DM Mono",monospace;
+  letter-spacing: .1em;
+  opacity: .65
+}
+
+.footer-brand {
+  font-size: 13px;
+  font-family: "Manrope",sans-serif;
+  font-weight: 800;
+  letter-spacing: -.05em
+}
+
+.footer a:hover {
+  opacity: 1
+}
+
+/* =========================================================
+   SCROLL REVEAL / CARD TRANSITIONS
+========================================================= */
+
+.reveal {
+  opacity: 0;
+  transform: translateY(45px);
+  transition: opacity .9s ease,transform .9s cubic-bezier(.2,.8,.2,1)
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0)
+}
+
+/* =========================================================
+   COFFEE — STAGGER
+========================================================= */
+
+.coffee-item:nth-child(2) {
+  transition-delay: .08s
+}
+
+.coffee-item:nth-child(3) {
+  transition-delay: .16s
+}
+
+.coffee-item:nth-child(4) {
+  transition-delay: .24s
+}
+
+/* =========================================================
+   DROPDOWN MENU (POSISI KANAN)
+========================================================= */
+
+.menu-page {
+  position: fixed;
+  top: 85px !important;
+  right: 7vw !important;
+  left: auto !important; /* Memaksa posisi di kanan, membatalkan left: 0 dari CSS lama */
+  bottom: auto !important; 
+  width: 260px !important;
+  height: auto !important;
+  background: rgba(11, 9, 7, 0.95) !important;
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border: 1px solid rgba(238, 231, 223, 0.15);
+  border-radius: 12px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
+  z-index: 9000;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-15px) !important; /* Animasi dari atas */
+  transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s;
+  padding: 10px;
+}
+
+.menu-page.is-open {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0) !important;
+}
+
+/* (Sisa kode CSS menu-dropdown-box, dropdown-nav, dll tetap sama seperti sebelumnya) */
+
+/* Responsif Mobile */
+@media (max-width: 650px) {
+  .menu-page {
+    top: 75px !important;
+    right: 5vw !important;
+    width: 220px !important;
+  }
+}
+
+/* =========================================================
+   KEYFRAMES / ANIMATIONS
+========================================================= */
+
+@keyframes cardIn {
+  from {
+    opacity: 0;
+    transform: translateY(18px)
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0)
+  }
+}
+
+@keyframes heroFloat {
+  0%,100% {
+    transform: translateY(0)
+  }
+
+  50% {
+    transform: translateY(-12px)
+  }
+}
+
+@keyframes orbitSpin {
+  to {
+    transform: rotate(360deg)
+  }
+}
+
+@keyframes marquee {
+  to {
+    transform: translateX(-50%)
+  }
+}
+
+/* =========================================================
+   RESPONSIVE — TABLET 1000px
+========================================================= */
+
+@media(max-width:1000px) {
+  .desktop-nav {
+    display: none
+  }
+
+  .hero {
+    grid-template-columns: 1fr;
+    padding-top: 135px;
+    min-height: auto;
+    gap: 70px
+  }
+
+  .hero-content {
+    padding-right: 0
+  }
+
+  .hero h1 {
+    font-size: clamp(70px,15vw,120px)
+  }
+
+  .hero-visual {
+    height: 520px
+  }
+
+  .hero-circle {
+    width: min(70vw,500px);
+    height: min(70vw,500px)
+  }
+
+  .stats {
+    grid-template-columns: repeat(2,1fr);
+    gap: 35px 0
+  }
+
+  .stat:nth-child(3) {
+    padding-left: 0;
+    border-left: 0
+  }
+
+  .coffee {
+    padding-top: 110px
+  }
+
+  .experience-head {
+    display: block
+  }
+
+  .experience-head>p {
+    margin-top: 30px
+  }
+
+  .order-grid {
+    grid-template-columns: repeat(2,1fr)
+  }
+}
+
+/* =========================================================
+   RESPONSIVE — MOBILE 650px
+========================================================= */
+
+@media(max-width:650px) {
+  .navbar {
+    height: 75px;
+    padding: 0 5vw
+  }
+
+  .navbar.scrolled {
+    height: 65px
+  }
+
+  .nav-order {
+    display: none
+  }
+
+  .hero {
+    padding: 115px 5vw 70px;
+    gap: 45px
+  }
+
+  .hero h1 {
+    font-size: 21vw
+  }
+
+  .hero-kicker {
+    margin-bottom: 35px
+  }
+
+  .hero-bottom {
+    margin-top: 45px;
+    display: block
+  }
+
+  .hero-visual {
+    height: 95vw;
+    min-height: 360px
+  }
+
+  .hero-circle {
+    min-width: 280px;
+    min-height: 280px;
+    width: 78vw;
+    height: 78vw
+  }
+
+  .hero-floating-note {
+    right: 0;
+    bottom: 0
+  }
+
+  .scroll-indicator {
+    left: 5vw;
+    bottom: 20px
+  }
+
+  .stats {
+    padding: 45px 5vw
+  }
+
+  .stat {
+    padding-left: 15px
+  }
+
+  .stat strong {
+    font-size: 42px
+  }
+
+  .coffee {
+    padding: 90px 5vw
+  }
+
+  .section-intro {
+    display: block;
+    margin-bottom: 55px
+  }
+
+  .section-description {
+    margin-top: 30px
+  }
+
+  .section-intro h2,.experience h2 {
+    font-size: 14vw
+  }
+
+  .coffee-grid {
+    grid-template-columns: 1fr;
+    gap: 55px
+  }
+
+  .coffee-image-wrap {
+    height: 105vw
+  }
+
+  .coffee-footer {
+    display: block;
+    margin-top: 60px
+  }
+
+  .coffee-footer .main-btn {
+    margin-top: 25px
+  }
+
+  .experience {
+    padding: 90px 5vw
+  }
+
+  .experience-head {
+    margin-bottom: 60px
+  }
+
+  .experience-row {
+    grid-template-columns: 35px 1fr 25px
+  }
+
+  .experience-row p {
+    display: none
+  }
+
+  .contact {
+    padding: 80px 5vw 45px
+  }
+
+  .contact-top {
+    display: block
+  }
+
+  .contact-top p:last-child {
+    margin-top: 12px
+  }
+
+  .contact h2 {
+    font-size: 24vw
+  }
+
+  .contact-main {
+    margin: 100px 0
+  }
+
+  .contact-bottom {
+    display: block
+  }
+
+  .contact-bottom p+ p {
+    margin-top: 8px
+  }
+
+  .footer {
+    padding: 24px 5vw;
+    display: grid;
+    grid-template-columns: 1fr 1fr
+  }
+
+  .footer a {
+    grid-column: 1/-1
+  }
+
+  .menu-page-inner {
+    padding: 100px 5vw 60px
+  }
+
+  .menu-top h2 {
+    font-size: 18vw
+  }
+
+  .menu-navigation {
+    grid-template-columns: 1fr;
+    margin: 20px 0 35px
+  }
+
+  .menu-big-link {
+    font-size: 10vw
+  }
+
+  .order-grid {
+    grid-template-columns: 1fr
+  }
+
+  .order-card img,.order-placeholder {
+    height: 80vw
+  }
+
+  .menu-filter {
+    gap: 7px
+  }
+}
+
+/* =========================================================
+   BEST SELLER — RESPONSIVE GRID
+========================================================= */
+
+@media (max-width: 1100px) {
+
+  .coffee-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 60px 24px;
+  }
+
+  .coffee-image-wrap {
+    height: clamp(320px, 48vw, 500px);
+  }
+
+}
+
+@media (max-width: 640px) {
+
+  .coffee-grid {
+    grid-template-columns: 1fr;
+    gap: 55px;
+  }
+
+  .coffee-image-wrap {
+    height: 400px;
+  }
+
+}
+
+/* =========================================================
+   [CSS-FIX-03 & CSS-FIX-08]
+   RESPONSIVE — LEVEL 2 (1000px)
+   Perbaikan: selector yang tidak cocok dengan HTML
+   sebelumnya (mis. .hero-desc) dihapus.
+========================================================= */
+
+@media (max-width: 1000px) {
+
+    .hero {
+        grid-template-columns: minmax(0, 1fr) minmax(280px, .9fr);
+        gap: 35px;
+        padding: 130px 6vw 70px;
+    }
+
+    .hero-content {
+        padding-right: 0;
+        min-width: 0;
+    }
+
+    .hero h1 {
+        font-size: clamp(58px, 10vw, 105px);
+    }
+
+    .hero-visual {
+        height: 500px;
+        min-width: 0;
+    }
+
+    .hero-circle {
+        width: min(42vw, 430px);
+        height: min(42vw, 430px);
+        min-width: 280px;
+        min-height: 280px;
+    }
+
+    .hero-floating-note {
+        right: 0;
+        bottom: 8%;
+        font-size: 8px;
+    }
+
+    .stats {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    .coffee-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .order-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+/* =========================================================
+   [CSS-FIX-03 & CSS-FIX-08]
+   RESPONSIVE — MOBILE 650px (LEVEL 2)
+   Tetap 2 kolom untuk coffee & order.
+========================================================= */
+
+@media (max-width: 650px) {
+
+    .hero {
+        grid-template-columns: minmax(0, .95fr) minmax(135px, 1.05fr);
+        gap: 12px;
+        padding: 105px 5vw 60px;
+        min-height: 100vh;
+    }
+
+    .hero-content {
+        min-width: 0;
+    }
+
+    .hero h1 {
+        font-size: clamp(45px, 14vw, 75px);
+        line-height: .84;
+    }
+
+    .hero-kicker {
+        margin-bottom: 28px;
+        font-size: 8px;
+    }
+
+    .hero-kicker span {
+        width: 18px;
+    }
+
+    .hero-bottom {
+        margin-top: 28px;
+    }
+
+    .hero-tagline {
+        font-size: 8px;
+        padding: 8px 10px;
+        letter-spacing: .08em;
+    }
+
+    .hero-visual {
+        height: 360px;
+        min-height: 360px;
+    }
+
+    .hero-circle {
+        width: 42vw;
+        height: 42vw;
+        min-width: 180px;
+        min-height: 180px;
+    }
+
+    .hero-circle-label {
+        font-size: 6px;
+        padding: 5px 7px;
+    }
+
+    .label-side {
+        min-height: 75px;
+        padding: 8px 5px;
+    }
+
+    .hero-floating-note {
+        right: -2%;
+        bottom: 5%;
+        width: 90px;
+        font-size: 7px;
+        line-height: 1.4;
+        padding-left: 8px;
+    }
+
+    .stats {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 5px;
+        padding: 40px 5vw;
+    }
+
+    .stat {
+        padding: 0 8px;
+    }
+
+    .stat strong {
+        font-size: 30px;
+    }
+
+    .stat span {
+        font-size: 7px;
+    }
+
+    .coffee-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 25px 12px;
+    }
+
+    .coffee-image-wrap {
+        height: 45vw;
+        min-height: 170px;
+    }
+
+    .coffee-info {
+        display: block;
+    }
+
+    .coffee-info h3 {
+        font-size: 15px;
+    }
+
+    .coffee-info strong {
+        display: block;
+        margin-top: 8px;
+    }
+
+    .order-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+/* =========================================================
+   [CSS-FIX-08] VERY SMALL PHONE — 320px s/d 380px
+   DIGABUNG jadi SATU blok (sebelumnya ada dua @media 380px
+   terpisah yang saling menimpa).
+
+   Perbaikan selector:
+   - .stat-number  → .stat strong
+   - .stat-label   → .stat span
+   - .coffee-name  → .coffee-info h3
+   - .coffee-description → .coffee-info p
+   - .story-content h2   → .story-heading h2
+   - .story-main img     → .story-slide img
+   - .contact-grid, .footer-grid → dihapus (tidak ada di HTML)
+========================================================= */
+
+@media (max-width: 380px) {
+
+    /* ---------- HERO ---------- */
+    .hero {
+        grid-template-columns: minmax(0, .92fr) minmax(120px, 1.08fr);
+        gap: 8px;
+        padding: 100px 4vw 50px;
+    }
+
+    .hero-content {
+        min-width: 0;
+    }
+
+    .hero h1 {
+        font-size: clamp(38px, 14vw, 54px);
+        line-height: .86;
+    }
+
+    .hero-kicker {
+        font-size: 7px;
+        margin-bottom: 24px;
+    }
+
+    .hero-kicker span {
+        width: 14px;
+    }
+
+    .hero-index {
+        font-size: 7px;
+    }
+
+    .hero-bottom {
+        margin-top: 20px;
+    }
+
+    .hero-tagline {
+        font-size: 7px;
+        padding: 7px 8px;
+    }
+
+    /* ---------- HERO VISUAL ---------- */
+    .hero-visual {
+        height: 280px;
+        min-height: 280px;
+    }
+
+    .hero-circle {
+        width: 140px;
+        height: 140px;
+        min-width: 140px;
+        min-height: 140px;
+    }
+
+    .hero-circle-label {
+        font-size: 5px;
+        padding: 4px 6px;
+    }
+
+    .label-side {
+        min-height: 65px;
+        min-width: 24px;
+        padding: 7px 4px;
+    }
+
+    .hero-floating-note {
+        display: block;
+        width: 75px;
+        right: -3%;
+        bottom: 4%;
+        font-size: 6px;
+        line-height: 1.3;
+        padding-left: 6px;
+    }
+
+    /* ---------- STATS ---------- */
+    .stats {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 4px;
+        padding: 30px 4vw;
+    }
+
+    .stat {
+        padding: 0 5px;
+    }
+
+    /* [CSS-FIX-03] selector diperbaiki dari .stat-number */
+    .stat strong {
+        font-size: 22px;
+    }
+
+    /* [CSS-FIX-03] selector diperbaiki dari .stat-label */
+    .stat span {
+        font-size: 5px;
+    }
+
+    /* ---------- COFFEE ---------- */
+    .coffee-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 15px 8px;
+    }
+
+    .coffee-image-wrap {
+        height: 145px;
+        min-height: 0;
+    }
+
+    /* [CSS-FIX-03] selector diperbaiki dari .coffee-name */
+    .coffee-info h3 {
+        font-size: 11px;
+    }
+
+    /* [CSS-FIX-03] selector diperbaiki dari .coffee-description */
+    .coffee-info p {
+        font-size: 6px;
+    }
+
+    .coffee-info strong {
+        font-size: 8px;
+    }
+
+    /* ---------- STORY ---------- */
+    .story {
+        padding: 95px 5vw 70px;
+    }
+
+    .story-heading {
+        margin-bottom: 45px;
+    }
+
+    /* [CSS-FIX-03] selector diperbaiki dari .story-content h2 */
+    .story-heading h2 {
+        font-size: clamp(46px, 15vw, 72px);
+    }
+
+    /* [CSS-FIX-03] selector diperbaiki dari .story-main img */
+    .story-slide img {
+        width: 100%;
+    }
+
+    /* ---------- EXPERIENCE ---------- */
+    .experience-row {
+        grid-template-columns: 25px minmax(0, 1fr) 18px;
+        gap: 7px;
+    }
+
+    .experience-row p {
+        display: block;
+        font-size: 7px;
+        line-height: 1.4;
+    }
+
+    /* ---------- ORDER ---------- */
+    .order-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 10px;
+    }
+
+    /* ---------- FOOTER ---------- */
+    .footer {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    /* [CSS-FIX-03] .contact-grid & .footer-grid DIHAPUS —
+       tidak ada di HTML. */
+}
+
+/* =========================================================
+   ACCESSIBILITY / REDUCED MOTION
+========================================================= */
+
+@media(pointer:coarse) {
+  .cursor {
+    display: none
+  }
+}
+
+/* [CSS-FIX-07] Guard prefers-reduced-motion untuk cursor:
+   jika pengguna memilih reduce motion, sembunyikan cursor
+   custom & smoke agar tidak mengganggu. */
+@media(prefers-reduced-motion:reduce) {
+
+  html {
+    scroll-behavior: auto
+  }
+
+  *,*:before,*:after {
+    animation-duration: .01ms!important;
+    animation-iteration-count: 1!important;
+    transition-duration: .01ms!important
+  }
+
+  .cursor,
+  .cursor-smoke {
+    display: none !important;
+  }
+
+  .marquee-track {
+    animation: none !important;
+  }
+
+  .hero-circle,
+  .orbit-one,
+  .orbit-two {
+    animation: none !important;
+  }
+}
+
+/* =========================================================
+   HERO — KOPI ACCENT
+========================================================= */
+
+.hero h1 em {
+    color: #c7a27a;
+}
+
+/* =========================================================
+   HERO TAGLINE — FRAMED
+========================================================= */
+
+.hero-bottom {
+    margin-top: 42px;
+}
+
+.hero-tagline {
+    display: inline-flex;
+    align-items: center;
+
+    padding: 10px 16px;
+
+    border: 1px solid rgba(199, 162, 122, .38);
+
+    background:
+        rgba(199, 162, 122, .055);
+
+    color: #c7a27a;
+
+    border-radius: 999px;
+
+    font-size: 12px;
+    letter-spacing: .13em;
+
+    box-shadow:
+        inset 0 0 20px rgba(199, 162, 122, .025),
+        0 8px 30px rgba(0, 0, 0, .12);
+
+    position: relative;
+    z-index: 2;
+}
+
+/* =========================================================
+   HERO VISUAL — SUPPORTING COPY
+========================================================= */
+
+.hero-floating-note {
+    right: 2%;
+    bottom: 14%;
+
+    font-size: 11px;
+    line-height: 1.8;
+    letter-spacing: .13em;
+
+    text-align: left;
+
+    color: rgba(238, 231, 223, .58);
+
+    opacity: 1;
+
+    padding-left: 15px;
+
+    border-left: 1px solid
+        rgba(199, 162, 122, .45);
+}
+
+/* =========================================================
+   CIRCLE LABEL BASE
+========================================================= */
+
+.hero-circle-label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    min-height: 30px;
+
+    padding: 7px 13px;
+
+    border: 1px solid
+        rgba(199, 162, 122, .4);
+
+    border-radius: 999px;
+
+    background:
+        rgba(11, 9, 7, .72);
+
+    backdrop-filter: blur(8px);
+
+    -webkit-backdrop-filter: blur(8px);
+
+    color: #c7a27a;
+
+    font-size: 8px;
+    letter-spacing: .14em;
+
+    box-shadow:
+        0 8px 25px rgba(0, 0, 0, .2);
+
+    z-index: 5;
+
+    transition:
+        transform .4s ease,
+        border-color .4s ease,
+        background .4s ease;
+}
+
+/* =========================================================
+   CIRCLE LABEL — TOP / BOTTOM / SIDE
+========================================================= */
+
+.label-top {
+    top: 1%;
+    left: 50%;
+
+    transform:
+        translateX(-50%);
+}
+
+.label-bottom {
+    bottom: 1%;
+    left: 50%;
+
+    transform:
+        translateX(-50%);
+}
+
+.label-side {
+    right: -3%;
+    top: 50%;
+
+    transform:
+        translateY(-50%);
+
+    writing-mode: vertical-rl;
+
+    min-height: 105px;
+    min-width: 30px;
+
+    padding: 12px 7px;
+
+    letter-spacing: .13em;
+}
+
+/* =========================================================
+   LABEL HOVER
+========================================================= */
+
+.hero-circle:hover .label-top {
+    transform:
+        translateX(-50%)
+        translateY(-3px);
+}
+
+.hero-circle:hover .label-bottom {
+    transform:
+        translateX(-50%)
+        translateY(3px);
+}
+
+.hero-circle:hover .label-side {
+    transform:
+        translateY(-50%)
+        translateX(3px);
+}
+
+/* =========================================================
+   HERO CIRCLE — MORE FOCAL
+========================================================= */
+
+.hero-circle-inner {
+    border-color:
+        rgba(199, 162, 122, .3);
+
+    box-shadow:
+        0 0 0 1px
+            rgba(199, 162, 122, .05),
+        0 35px 90px
+            rgba(0, 0, 0, .55);
+}
+
+/* =========================================================
+   MOBILE HERO — label/tagline tweaks
+========================================================= */
+
+@media (max-width: 900px) {
+
+    .hero-bottom {
+        margin-top: 35px;
+    }
+
+    .hero-tagline {
+        font-size: 10px;
+        padding: 9px 13px;
+    }
+
+    .hero-floating-note {
+        right: 1%;
+        bottom: 8%;
+
+        font-size: 9px;
+    }
+
+    .label-side {
+        right: -1%;
+
+        min-height: 92px;
+    }
+}
+
+@media (max-width: 600px) {
+
+    .hero-tagline {
+        font-size: 9px;
+        letter-spacing: .1em;
+    }
+
+    .hero-floating-note {
+        right: 0;
+        bottom: 5%;
+
+        font-size: 8px;
+    }
+
+    .hero-circle-label {
+        font-size: 7px;
+        padding: 6px 9px;
+    }
+
+    .label-side {
+        min-height: 80px;
+        padding: 9px 6px;
+    }
+}
+
+/* =========================================================
+   FIX MENU NAVIGATION LAYOUT
+========================================================= */
+
+/* 1. Perkecil sedikit ukuran font agar teks panjang tidak terpotong */
+.menu-big-link {
+  font-size: clamp(24px, 3.2vw, 50px) !important;
+  white-space: normal !important; /* Biarkan teks turun baris jika kepanjangan */
+  gap: 15px; /* Jarak aman antara teks dan angka */
+}
+
+/* 2. Pastikan angka (01, 02, dst) tidak tergencet atau menempel */
+.menu-big-link span {
+  flex-shrink: 0 !important; 
+  padding-left: 10px;
+}
+
+/* 3. Atur ulang Grid jaraknya agar tidak terlalu lebar di tengah */
+.menu-navigation {
+  column-gap: 4vw !important; 
+  row-gap: 10px;
+}
+
+/* 4. Perbaiki Judul "MENU." yang terpotong di atas */
+.menu-top h2 {
+  line-height: 1.1 !important; /* Ubah dari 0.8 agar tidak memotong huruf */
+  margin-top: 10px !important;
+  padding-top: 10px; 
+}
+
+/* =========================================================
+   DROPDOWN MENU (Menggantikan Fullscreen Menu)
+========================================================= */
+
+/* Menimpa .menu-page dari full layar menjadi kotak kecil */
+.menu-page {
+  position: fixed;
+  top: 85px; /* Jarak dari atas, di bawah navbar */
+  right: 7vw; /* Sejajar dengan ikon garis tiga di kanan */
+  width: 260px; /* Lebar kotak menu */
+  height: auto;
+  background: rgba(11, 9, 7, 0.95); /* Warna hitam transparan */
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border: 1px solid rgba(238, 231, 223, 0.15);
+  border-radius: 12px; /* Sudut membulat */
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
+  z-index: 9000;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-15px); /* Animasi turun dari atas */
+  transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s;
+  padding: 10px;
+}
+
+/* Saat menu dibuka */
+.menu-page.is-open {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+/* Wadah di dalam menu */
+.menu-dropdown-box {
+  width: 100%;
+}
+
+.dropdown-nav {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Desain tiap link menu */
+.dropdown-nav a {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 12px;
+  color: #eee7df;
+  font: 11px "DM Mono", monospace;
+  letter-spacing: 0.1em;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(238, 231, 223, 0.08);
+  transition: background 0.2s, padding-left 0.2s, color 0.2s;
+}
+
+.dropdown-nav a:last-child {
+  border-bottom: none;
+}
+
+/* Efek hover saat kursor diarahkan ke menu */
+.dropdown-nav a:hover {
+  background: rgba(238, 231, 223, 0.05);
+  padding-left: 18px; /* Geser sedikit ke kanan */
+  color: #c7a27a; /* Warna emas */
+  border-radius: 6px;
+}
+
+/* Angka kecil di kanan */
+.dropdown-nav a span {
+  font-size: 9px;
+  opacity: 0.4;
+}
+
+/* Agar halaman belakang tidak terkunci (tidak perlu scroll hidden) */
+body.menu-open {
+  overflow: auto !important; 
+}
+
+/* Responsif untuk Mobile */
+@media (max-width: 650px) {
+  .menu-page {
+    top: 75px;
+    right: 5vw;
+    width: 220px;
+  }
+}

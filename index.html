@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <!-- ========================= META & FONT ========================= -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0b0907">
+  <meta name="description" content="Sintaksis Kopi — The Syntax of Coffee.">
+  <title>Sintaksis. KOPI — The Syntax of Coffee</title>
+
+  <!-- [FIX-01] Tutup <link rel="icon"> yang sebelumnya tidak ditutup -->
+  <link rel="icon" type="image/png" href="images/intro.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,500;0,600;1,500;1,600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="kopi.css">
+
+  <!-- [FIX-02] Open Graph + Twitter Card + canonical -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Sintaksis. KOPI — The Syntax of Coffee">
+  <meta property="og:description" content="Specialty coffee dengan karakter. Setiap cangkir punya sintaksisnya sendiri.">
+  <meta property="og:image" content="images/intro.png">
+  <meta property="og:locale" content="id_ID">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Sintaksis. KOPI — The Syntax of Coffee">
+  <meta name="twitter:description" content="Specialty coffee dengan karakter.">
+  <meta name="twitter:image" content="images/intro.png">
+  <link rel="canonical" href="https://sintaksiskopi.id/">
+
+  <!-- [FIX-03] Fallback no-JS -->
+  <noscript>
+    <style>
+      .reveal { opacity: 1 !important; transform: none !important; }
+    </style>
+  </noscript>
+
+  <!-- [FIX-04] JSON-LD schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "CafeOrCoffeeShop",
+    "name": "Sintaksis Kopi",
+    "description": "Specialty coffee — the syntax of coffee.",
+    "image": "images/intro.png",
+    "email": "hello@sintaksiskopi.id",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Jakarta",
+      "addressCountry": "ID"
+    },
+    "openingHours": "Mo-Su 08:00-22:00",
+    "servesCuisine": "Coffee, Tea, Non-Coffee, Bread, Dessert, Rice Bowls"
+  }
+  </script>
+</head>
+<body>
+  <div class="cursor" aria-hidden="true"></div>
+
+  <!-- [FIX-05] Skip-to-content -->
+  <a href="#home" class="skip-link">Lewati ke konten utama</a>
+
+  <!-- ========================= NAVBAR ========================= -->
+  <header class="navbar">
+    <a href="#home" class="logo">SINTAKSIS<span>KOPI</span></a>
+
+    <nav class="desktop-nav" aria-label="Navigasi utama">
+      <a href="#coffee" class="nav-link">Best Seller</a>
+      <a href="#story" class="nav-link">Story</a>
+      <a href="#experience" class="nav-link">Experience</a>
+      <a href="#contact" class="nav-link">Contact</a>
+    </nav>
+
+    <div class="nav-right">
+      <button class="menu-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="menuPage">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- [FIX-06] <main> PEMBUKA — tag nyata, bukan komentar -->
+  <main>
+
+  <!-- =========================================================
+     HERO / INTRO
+========================================================= -->
+
+<section class="hero" id="home">
+
+    <div class="hero-content reveal">
+
+        <div class="hero-kicker">
+            <span></span>
+            SPECIALTY COFFEE / EST. 2026
+        </div>
+
+        <div class="hero-title-wrap">
+
+            <p class="hero-index">
+                01 — INTRO
+            </p>
+
+            <h1>
+                SINTAKSIS<br>
+                <em>KOPI</em>
+            </h1>
+
+        </div>
+
+        <div class="hero-bottom">
+
+            <!-- [TODO-01] Tagline asli. Override JS sudah dihapus di JS PEMBARUAN 01 -->
+            <p class="hero-tagline">
+                THE SYNTAX OF COFFEE
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         HERO VISUAL / COFFEE CIRCLE
+    ====================================================== -->
+
+    <div class="hero-visual reveal">
+
+        <div class="hero-orbit orbit-one"></div>
+        <div class="hero-orbit orbit-two"></div>
+
+
+        <div class="hero-circle">
+
+            <div class="hero-circle-inner">
+
+                <!-- [FIX-07] loading/decoding -->
+                <img
+                    src="images/intro.png"
+                    alt="Premium coffee Sintaksis Kopi"
+                    loading="eager"
+                    decoding="async"
+                >
+
+            </div>
+
+
+            <!-- CIRCLE LABEL — TOP -->
+
+            <div class="hero-circle-label label-top">
+                ROAST / POUR / REPEAT
+            </div>
+
+
+            <!-- CIRCLE LABEL — BOTTOM -->
+
+            <div class="hero-circle-label label-bottom">
+                SINTAKSIS KOPI — 01
+            </div>
+
+
+            <!-- CIRCLE LABEL — SIDE -->
+
+            <div class="hero-circle-label label-side">
+                A CUP WITH CHARACTER
+            </div>
+
+        </div>
+
+
+        <!-- SUPPORTING COPY -->
+
+        <div class="hero-floating-note">
+            WHERE EVERY CUP HAS<br>
+            ITS OWN SYNTAX.
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         SCROLL INDICATOR
+    ====================================================== -->
+
+    <div class="scroll-indicator">
+
+        <span class="scroll-line"></span>
+
+        SCROLL TO EXPLORE
+
+    </div>
+
+</section>
+
+    <!-- ========================= BRAND MARQUEE ========================= -->
+    <section class="marquee" aria-label="Brand statement">
+      <div class="marquee-track">
+        <span>THE SYNTAX OF COFFEE</span><i>✳</i>
+        <span>THE SYNTAX OF COFFEE</span><i>✳</i>
+        <span>THE SYNTAX OF COFFEE</span><i>✳</i>
+        <span>THE SYNTAX OF COFFEE</span><i>✳</i>
+      </div>
+    </section>
+
+    <!-- ========================= STATS ========================= -->
+    <section class="stats reveal" aria-label="Sintaksis Kopi">
+      <div class="stat"><strong data-target="12">0</strong><span>BEANS SOURCED</span></div>
+      <div class="stat"><strong data-target="8">0</strong><span>SIGNATURE DRINKS</span></div>
+      <div class="stat"><strong data-target="4">0</strong><span>YEARS OF CRAFT</span></div>
+      <div class="stat"><strong data-target="100">0</strong><span>% HANDCRAFTED</span></div>
+    </section>
+
+    <!-- ========================= BEST SELLER / COFFEE ========================= -->
+    <section class="coffee coffee-section" id="coffee">
+      <div class="section-intro reveal">
+        <div>
+          <p class="eyebrow">02 — BEST SELLER</p>
+          <h2>COFFEE<br><em>IN ITS BEST FORM.</em></h2>
+        </div>
+        <p class="section-description">Four signatures. Four different characters. Built for people who take their coffee seriously.</p>
+      </div>
+
+            <div class="coffee-grid">
+                
+        <!-- 01 -->
+        <article class="coffee-item reveal">
+          <div class="coffee-number">01</div>
+          <div class="coffee-image-wrap">
+            <img class="coffee-image" src="images/Velvet Latte.png" alt="Velvet Latte" loading="lazy" decoding="async">
+            <span class="coffee-tag">★ BEST SELLER</span>
+          </div>
+          <div class="coffee-info">
+            <div class="coffee-main"><h3>Velvet Latte</h3><p>SILKY / SOFT / BALANCED</p></div>
+            <div class="coffee-price"><span>Hot: Rp 38.000</span><span>Iced: Rp 40.000</span></div>
+          </div>
+        </article>
+
+        <!-- 02 -->
+        <article class="coffee-item reveal">
+          <div class="coffee-number">02</div>
+          <div class="coffee-image-wrap">
+            <img class="coffee-image" src="images/Espresso Noir.png" alt="Espresso Noir" loading="lazy" decoding="async">
+            <span class="coffee-tag">★ BEST SELLER</span>
+          </div>
+          <div class="coffee-info">
+            <div class="coffee-main"><h3>Espresso Noir</h3><p>Dark / Bold / Intense</p></div>
+            <div class="coffee-price"><span>Hot: Rp 28.000</span></div>
+          </div>
+        </article>
+
+        <!-- 03 -->
+        <article class="coffee-item reveal">
+          <div class="coffee-number">03</div>
+          <div class="coffee-image-wrap">
+            <img class="coffee-image" src="images/Cold Brew.png" alt="Cold Brew" loading="lazy" decoding="async">
+            <span class="coffee-tag">★ BEST SELLER</span>
+          </div>
+          <div class="coffee-info">
+            <div class="coffee-main"><h3>Cold Brew</h3><p>Clean / Cold / Smooth</p></div>
+            <div class="coffee-price"><span>Iced: Rp 32.000</span></div>
+          </div>
+        </article>
+
+        <!-- 04 -->
+        <article class="coffee-item reveal">
+          <div class="coffee-number">04</div>
+          <div class="coffee-image-wrap">
+            <img class="coffee-image" src="images/Mocha Noir.png" alt="Mocha Noir" loading="lazy" decoding="async">
+            <span class="coffee-tag">★ BEST SELLER</span>
+          </div>
+          <div class="coffee-info">
+            <div class="coffee-main"><h3>Mocha Noir</h3><p>Cocoa / Rich / Deep</p></div>
+            <div class="coffee-price"><span>Iced: Rp 40.000</span></div>
+          </div>
+        </article>
+        
+        <!-- 05 -->
+        <article class="coffee-item reveal">
+          <div class="coffee-number">05</div>
+          <div class="coffee-image-wrap">
+            <img class="coffee-image" src="images/Spanish Latte.png" alt="Spanish Latte" loading="lazy" decoding="async">
+            <span class="coffee-tag">★ BEST SELLER</span>
+          </div>
+          <div class="coffee-info">
+            <div class="coffee-main"><h3>Spanish Latte</h3><p>Sweet / Creamy / Rich</p></div>
+            <div class="coffee-price"><span>Hot: Rp 38.000</span><span>Iced: Rp 40.000</span></div>
+          </div>
+        </article>
+
+        <!-- 06 -->
+        <article class="coffee-item reveal">
+          <div class="coffee-number">06</div>
+          <div class="coffee-image-wrap">
+            <img class="coffee-image" src="images/Peach Tea.png" alt="Peach Tea" loading="lazy" decoding="async">
+            <span class="coffee-tag">★ BEST SELLER</span>
+          </div>
+          <div class="coffee-info">
+            <div class="coffee-main"><h3>Peach Tea</h3><p>Fruity / Light / Refreshing</p></div>
+            <div class="coffee-price"><span>Iced: Rp 25.000</span></div>
+          </div>
+        </article>
+
+        <!-- 07 -->
+        <article class="coffee-item reveal">
+          <div class="coffee-number">07</div>
+          <div class="coffee-image-wrap">
+            <img class="coffee-image" src="images/Strawberry Tea.png" alt="Strawberry Tea" loading="lazy" decoding="async">
+            <span class="coffee-tag">★ BEST SELLER</span>
+          </div>
+          <div class="coffee-info">
+            <div class="coffee-main"><h3>Strawberry Tea</h3><p>Sweet / Fruity / Fresh</p></div>
+            <div class="coffee-price"><span>Iced: Rp 26.000</span></div>
+          </div>
+        </article>
+
+        <!-- 08 -->
+        <article class="coffee-item reveal">
+          <div class="coffee-number">08</div>
+          <div class="coffee-image-wrap">
+            <img class="coffee-image" src="images/Earl Grey Tea.png" alt="Earl Grey Tea" loading="lazy" decoding="async">
+            <span class="coffee-tag">★ BEST SELLER</span>
+          </div>
+          <div class="coffee-info">
+            <div class="coffee-main"><h3>Earl Grey Tea</h3><p>Floral / Elegant / Aromatic</p></div>
+            <div class="coffee-price"><span>Iced: Rp 24.000</span></div>
+          </div>
+        </article>
+
+        <!-- 09 -->
+        <article class="coffee-item reveal">
+          <div class="coffee-number">09</div>
+          <div class="coffee-image-wrap">
+            <img class="coffee-image" src="images/Chocolate Cream.png" alt="Chocolate Cream" loading="lazy" decoding="async">
+            <span class="coffee-tag">★ BEST SELLER</span>
+          </div>
+          <div class="coffee-info">
+            <div class="coffee-main"><h3>Chocolate Cream</h3><p>Chocolate / Creamy / Rich</p></div>
+            <div class="coffee-price"><span>Rp 30.000</span></div>
+          </div>
+        </article>
+
+        <!-- 10 -->
+        <article class="coffee-item reveal">
+          <div class="coffee-number">10</div>
+          <div class="coffee-image-wrap">
+            <img class="coffee-image" src="images/Taro Cream.png" alt="Taro Cream" loading="lazy" decoding="async">
+            <span class="coffee-tag">★ BEST SELLER</span>
+          </div>
+          <div class="coffee-info">
+            <div class="coffee-main"><h3>Taro Cream</h3><p>Sweet / Creamy / Smooth</p></div>
+            <div class="coffee-price"><span>Rp 32.000</span></div>
+          </div>
+        </article>
+
+        <!-- 11 -->
+        <article class="coffee-item reveal">
+          <div class="coffee-number">11</div>
+          <div class="coffee-image-wrap">
+            <img class="coffee-image" src="images/Choco Hazelnut.png" alt="Choco Hazelnut" loading="lazy" decoding="async">
+            <span class="coffee-tag">★ BEST SELLER</span>
+          </div>
+          <div class="coffee-info">
+            <div class="coffee-main"><h3>Choco Hazelnut</h3><p>Nutty / Chocolate / Creamy</p></div>
+            <div class="coffee-price"><span>Rp 34.000</span></div>
+          </div>
+        </article>
+
+        <!-- 12 -->
+        <article class="coffee-item reveal">
+          <div class="coffee-number">12</div>
+          <div class="coffee-image-wrap">
+            <img class="coffee-image" src="images/Iced Americano.png" alt="Iced Americano" loading="lazy" decoding="async">
+            <span class="coffee-tag">★ BEST SELLER</span>
+          </div>
+          <div class="coffee-info">
+            <div class="coffee-main"><h3>Iced Americano</h3><p>Cold / Crisp / Bold</p></div>
+            <div class="coffee-price"><span>Iced: Rp 27.000</span></div>
+          </div>
+        </article>
+
+        <!-- 13 -->
+        <article class="coffee-item reveal">
+          <div class="coffee-number">13</div>
+          <div class="coffee-image-wrap">
+            <img class="coffee-image" src="images/Cold Black.png" alt="Cold Black" loading="lazy" decoding="async">
+            <span class="coffee-tag">★ BEST SELLER</span>
+          </div>
+          <div class="coffee-info">
+            <div class="coffee-main"><h3>Cold Black</h3><p>Dark / Cold / Smooth</p></div>
+            <div class="coffee-price"><span>Iced: Rp 28.000</span></div>
+          </div>
+        </article>
+
+        <!-- 14 -->
+        <article class="coffee-item reveal">
+          <div class="coffee-number">14</div>
+          <div class="coffee-image-wrap">
+            <img class="coffee-image" src="images/Espresso Tonic.png" alt="Espresso Tonic" loading="lazy" decoding="async">
+            <span class="coffee-tag">★ BEST SELLER</span>
+          </div>
+          <div class="coffee-info">
+            <div class="coffee-main"><h3>Espresso Tonic</h3><p>Bright / Bitter / Refreshing</p></div>
+            <div class="coffee-price"><span>Iced: Rp 32.000</span></div>
+          </div>
+        </article>
+
+        <!-- 15 -->
+        <article class="coffee-item reveal">
+          <div class="coffee-number">15</div>
+          <div class="coffee-image-wrap">
+            <img class="coffee-image" src="images/Butter Croissant.png" alt="Butter Croissant" loading="lazy" decoding="async">
+            <span class="coffee-tag">★ BEST SELLER</span>
+          </div>
+          <div class="coffee-info">
+            <div class="coffee-main"><h3>Butter Croissant</h3><p>Buttery / Flaky / Golden</p></div>
+            <div class="coffee-price"><span>Rp 24.000</span></div>
+          </div>
+        </article>
+        
+        <!-- 16 -->
+        <article class="coffee-item reveal">
+          <div class="coffee-number">16</div>
+          <div class="coffee-image-wrap">
+            <img class="coffee-image" src="images/Cheese Danish.png" alt="Cheese Danish" loading="lazy" decoding="async">
+            <span class="coffee-tag">★ BEST SELLER</span>
+          </div>
+          <div class="coffee-info">
+            <div class="coffee-main"><h3>Cheese Danish</h3><p>Cheesy / Buttery / Flaky</p></div>
+            <div class="coffee-price"><span>Rp 28.000</span></div>
+          </div>
+        </article>
+
+        <!-- 17 -->
+        <article class="coffee-item reveal">
+          <div class="coffee-number">17</div>
+          <div class="coffee-image-wrap">
+            <img class="coffee-image" src="images/Pain au Chocolat.png" alt="Pain au Chocolat" loading="lazy" decoding="async">
+            <span class="coffee-tag">★ BEST SELLER</span>
+          </div>
+          <div class="coffee-info">
+            <div class="coffee-main"><h3>Pain au Chocolat</h3><p>Flaky / Chocolate / Rich</p></div>
+            <div class="coffee-price"><span>Rp 29.000</span></div>
+          </div>
+        </article>
+
+        <!-- 18 -->
+        <article class="coffee-item reveal">
+          <div class="coffee-number">18</div>
+          <div class="coffee-image-wrap">
+            <img class="coffee-image" src="images/Tiramisu.png" alt="Tiramisu" loading="lazy" decoding="async">
+            <span class="coffee-tag">★ BEST SELLER</span>
+          </div>
+          <div class="coffee-info">
+            <div class="coffee-main"><h3>Tiramisu</h3><p>Coffee / Creamy / Cocoa</p></div>
+            <div class="coffee-price"><span>Rp 32.000</span></div>
+          </div>
+        </article>
+
+        <!-- 19 -->
+        <article class="coffee-item reveal">
+          <div class="coffee-number">19</div>
+          <div class="coffee-image-wrap">
+            <img class="coffee-image" src="images/Cheesecake.png" alt="Cheesecake" loading="lazy" decoding="async">
+            <span class="coffee-tag">★ BEST SELLER</span>
+          </div>
+          <div class="coffee-info">
+            <div class="coffee-main"><h3>Cheesecake</h3><p>Creamy / Soft / Rich</p></div>
+            <div class="coffee-price"><span>Rp 34.000</span></div>
+          </div>
+        </article>
+
+        <!-- 20 Burnt Cheesecake -->
+        <article class="coffee-item reveal">
+          <div class="coffee-number">20</div>
+          <div class="coffee-image-wrap">
+            <img class="coffee-image" src="images/Burnt Cheesecake.png" alt="Burnt Cheesecake" loading="lazy" decoding="async">
+            <span class="coffee-tag">★ BEST SELLER</span>
+          </div>
+          <div class="coffee-info">
+            <div class="coffee-main"><h3>Burnt Cheesecake</h3><p>Caramelized / Creamy / Soft</p></div>
+            <div class="coffee-price"><span>Rp 36.000</span></div>
+          </div>
+        </article>
+
+        <!-- 21 Chicken Rice -->
+        <article class="coffee-item reveal">
+          <div class="coffee-number">21</div>
+          <div class="coffee-image-wrap">
+            <img class="coffee-image" src="images/Chicken Rice.png" alt="Chicken Rice" loading="lazy" decoding="async">
+            <span class="coffee-tag">★ BEST SELLER</span>
+          </div>
+          <div class="coffee-info">
+            <div class="coffee-main"><h3>Chicken Rice</h3><p>Savory / Warm / Comforting</p></div>
+            <div class="coffee-price"><span>Rp 38.000</span></div>
+          </div>
+        </article>
+
+        <!-- 22 Chicken Katsu Rice -->
+        <article class="coffee-item reveal">
+          <div class="coffee-number">22</div>
+          <div class="coffee-image-wrap">
+            <img class="coffee-image" src="images/Chicken Katsu Rice.png" alt="Chicken Katsu Rice" loading="lazy" decoding="async">
+            <span class="coffee-tag">★ BEST SELLER</span>
+          </div>
+          <div class="coffee-info">
+            <div class="coffee-main"><h3>Chicken Katsu Rice</h3><p>Crispy / Savory / Filling</p></div>
+            <div class="coffee-price"><span>Rp 42.000</span></div>
+          </div>
+        </article>
+
+        <!-- 23 Chicken Creamy Rice -->
+        <article class="coffee-item reveal">
+          <div class="coffee-number">23</div>
+          <div class="coffee-image-wrap">
+            <img class="coffee-image" src="images/Chicken Creamy Rice.png" alt="Chicken Creamy Rice" loading="lazy" decoding="async">
+            <span class="coffee-tag">★ BEST SELLER</span>
+          </div>
+          <div class="coffee-info">
+            <div class="coffee-main"><h3>Chicken Creamy Rice</h3><p>Creamy / Savory / Rich</p></div>
+            <div class="coffee-price"><span>Rp 43.000</span></div>
+          </div>
+        </article>
+      </div>
+
+        <div class="coffee-footer reveal">
+        <p>YOUR NEXT CUP IS ALREADY WAITING.</p>
+        <a href="menu.html" class="main-btn">VIEW FULL MENU <span>↗</span></a>
+      </div>
+    </section>
+
+   <!-- =========================================================
+     STORY
+========================================================= -->
+
+<section class="story" id="story">
+
+    <!-- STORY HEADER -->
+    <div class="story-heading reveal">
+
+        <!-- [FIX-08] Numbering 03 — OUR STORY -->
+        <span class="story-section-label">
+            03 — OUR STORY
+        </span>
+
+        <h2>
+            JUST MAKE
+            <em>COFFEE.</em>
+        </h2>
+
+        <p class="story-lead">
+            We build a language around it.
+        </p>
+
+    </div>
+
+    <!-- STORY MAIN -->
+    <div class="story-main">
+
+        <!-- STORY IMAGE -->
+        <div class="story-visual reveal">
+
+            <div class="story-slider">
+
+                <div class="story-slides">
+
+                    <div class="story-slide active">
+                        <img src="images/Image 1.png" alt="Sintaksis Kopi" loading="lazy" decoding="async">
+                    </div>
+
+                    <div class="story-slide">
+                        <img src="images/Image 2.png" alt="Sintaksis Kopi" loading="lazy" decoding="async">
+                    </div>
+
+                    <div class="story-slide">
+                        <img src="images/Image 3.png" alt="Sintaksis Kopi" loading="lazy" decoding="async">
+                    </div>
+
+                    <div class="story-slide">
+                        <img src="images/Image 4.png" alt="Sintaksis Kopi" loading="lazy" decoding="async">
+                    </div>
+
+                </div>
+
+                <div class="story-slide-overlay"></div>
+
+                <div class="story-slider-info">
+                    <span class="story-slide-number">01</span>
+                    <span class="story-slide-line"></span>
+                    <span class="story-year">EST. 2024</span>
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- STORY TEXT -->
+        <div class="story-copy">
+
+            <!-- INTRO -->
+            <article class="story-block reveal">
+                <div class="story-block-label">
+                    <span>01</span>
+                    <span class="story-block-line"></span>
+                    <span>THE IDEA</span>
+                </div>
+                <h3>Coffee has a language.</h3>
+                <p>
+                    Sintaksis Kopi lahir dari satu gagasan sederhana:
+                    kopi bukan sekadar minuman. Ia punya bahasa.
+                    Ada aroma yang datang lebih dulu, rasa yang muncul
+                    perlahan, sampai karakter yang tinggal setelah
+                    tegukan terakhir.
+                </p>
+                <p>
+                    Kami percaya bahwa secangkir kopi tersusun dari
+                    banyak elemen kecil yang saling melengkapi.
+                    Origin, varietas, proses, roast, suhu, waktu,
+                    sampai cara menuangkannya.
+                </p>
+            </article>
+
+            <!-- THE NAME -->
+            <article class="story-block reveal">
+                <div class="story-block-label">
+                    <span>02</span>
+                    <span class="story-block-line"></span>
+                    <span>THE NAME</span>
+                </div>
+                <h3>Why “Sintaksis”?</h3>
+                <p>
+                    Nama “Sintaksis” terinspirasi dari cara sebuah
+                    bahasa menyusun kata menjadi sebuah makna.
+                    Kami melihat kopi dengan cara yang sama.
+                </p>
+                <p>
+                    Origin, tingkat roasting, rasio, suhu, waktu,
+                    sampai teknik penyeduhan adalah bagian dari
+                    sebuah susunan.
+                </p>
+            </article>
+
+            <!-- THE CRAFT -->
+            <article class="story-block reveal">
+                <div class="story-block-label">
+                    <span>03</span>
+                    <span class="story-block-line"></span>
+                    <span>THE CRAFT</span>
+                </div>
+                <h3>Every detail has its place.</h3>
+                <p>
+                    Karena itu kami memilih biji kopi berdasarkan
+                    karakter dan kualitas yang jelas. Dari aroma
+                    pertama yang muncul, acidity yang bersih,
+                    rasa cokelat yang dalam, hingga tekstur yang
+                    lembut di akhir — setiap detail punya tempatnya
+                    sendiri.
+                </p>
+                <p>
+                    Dalam prosesnya, kami menjaga satu hal:
+                    jangan membuat kopi terasa lebih rumit dari
+                    yang seharusnya.
+                </p>
+            </article>
+
+                        <!-- PHILOSOPHY -->
+            <article class="story-block reveal story-block-final">
+                <div class="story-block-label">
+                    <span>04</span>
+                    <span class="story-block-line"></span>
+                    <span>THE PHILOSOPHY</span>
+                </div>
+                <h3>Quality without the noise.</h3>
+                <p>
+                    Roasting, brewing, suhu, waktu, dan rasio kami
+                    perlakukan dengan presisi supaya karakter alami
+                    kopinya tetap berbicara.
+                </p>
+                <p>
+                    Bagi kami, kualitas bukan tentang membuat sesuatu
+                    terlihat mahal atau sulit dipahami. Kualitas adalah
+                    ketika semua elemen bekerja bersama tanpa ada yang
+                    terasa berlebihan.
+                </p>
+            </article>
+
+        </div>
+    </div>
+
+    <!-- STORY FOOTER -->
+    <div class="story-footer reveal">
+        <p>
+            Satu cangkir. Banyak elemen.
+            Satu karakter yang utuh.
+        </p>
+        <a href="#contact" class="story-btn">
+            DISCOVER OUR STORY
+            <span>↗</span>
+        </a>
+    </div>
+
+</section>
+
+    <!-- ========================= EXPERIENCE ========================= -->
+    <section class="experience" id="experience">
+      <div class="experience-head reveal">
+        <div><p class="eyebrow">04 — EXPERIENCE</p><h2>THE PLACE<br>BEHIND THE <em>CUP.</em></h2></div>
+        <p>Not just a coffee stop. A space for slow mornings, sharp ideas, and conversations that don't need to be rushed.</p>
+      </div>
+      <div class="experience-list">
+        <div class="experience-row reveal">
+          <span>01</span>
+          <h3>Slow Mornings</h3>
+          <p>08:00 — 11:00</p>
+          <b>↗</b>
+        </div>
+        <div class="experience-row reveal">
+          <span>02</span>
+          <h3>Work & Create</h3>
+          <p>11:00 — 17:00</p>
+          <b>↗</b>
+        </div>
+        <div class="experience-row reveal">
+          <span>03</span>
+          <h3>Night Sessions</h3>
+          <p>17:00 — 22:00</p>
+          <b>↗</b>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================= CONTACT ========================= -->
+    <section class="contact" id="contact">
+      <div class="contact-top reveal"><p class="eyebrow">05 — CONTACT</p><p>COME SAY HELLO.</p></div>
+      <div class="contact-main reveal">
+        <h2>LET'S<br><em>TALK.</em></h2>
+        <a class="contact-mail" href="mailto:hello@sintaksiskopi.id">hello@sintaksiskopi.id <span>↗</span></a>
+      </div>
+      <div class="contact-bottom reveal">
+        <p>MON — SUN / 08:00 — 22:00</p><p>JAKARTA, INDONESIA</p>
+      </div>
+    </section>
+
+  <!-- [FIX-06] Penutup </main> -->
+  </main>
+
+  <!-- ========================= FOOTER ========================= -->
+  <footer class="footer">
+    <div class="footer-brand">SINTAKSIS. <span>KOPI</span></div>
+    <div>THE SYNTAX OF COFFEE © 2026</div>
+    <a href="#home">BACK TO TOP ↑</a>
+  </footer>
+
+  <!-- ========================= FULL MENU OVERLAY ========================= -->
+  <!-- [FIX-09] role dialog + anchor id="order-menu" -->
+   <!-- ========================= DROPDOWN MENU ========================= -->  
+
+  <div class="menu-page" id="menuPage" aria-hidden="true">
+    <div class="menu-dropdown-box">
+      <nav class="dropdown-nav">
+        <a href="#home" class="menu-close-link">HOME <span>01</span></a>
+        <!-- Arahkan ke menu.html -->
+        <a href="menu.html">FULL MENU <span>02</span></a>
+        <a href="#story" class="menu-close-link">STORY <span>03</span></a>
+        <a href="#" class="menu-close-link">NUMBER TABLE <span>04</span></a>
+        <a href="#" class="menu-close-link">FEEDBACK <span>05</span></a>
+        <a href="#" class="menu-close-link">PROMO EVENT <span>06</span></a>
+      </nav>
+    </div>
+  </div>
+
+  <!-- [FIX-11] defer untuk performa -->
+  <script src="kopi.js" defer></script>
+</body>
+</html>

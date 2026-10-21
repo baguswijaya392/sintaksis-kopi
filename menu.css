@@ -1,0 +1,468 @@
+/* =========================================================
+   SINTAKSIS KOPI — FULL MENU CSS
+   Disusun Ulang (Clean & Structured)
+========================================================= */
+
+/* =========================================================
+   1. BASE & RESET
+========================================================= */
+* { 
+  margin: 0; 
+  padding: 0; 
+  box-sizing: border-box; 
+}
+
+html { 
+  scroll-behavior: smooth; 
+}
+
+body {
+  background: radial-gradient(circle at 80% 20%, rgba(199, 162, 122, 0.05), transparent 40%), #0b0907;
+  color: #eee7df;
+  font-family: "Manrope", sans-serif;
+  overflow-x: hidden;
+}
+
+a { 
+  text-decoration: none; 
+  color: inherit; 
+}
+
+/* Custom Scrollbar (Emas Tipis) */
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: #0b0907; }
+::-webkit-scrollbar-thumb { background: #332a22; border-radius: 10px; }
+::-webkit-scrollbar-thumb:hover { background: #c7a27a; }
+
+
+/* =========================================================
+   2. NAVBAR
+========================================================= */
+.navbar {
+  position: fixed; 
+  top: 0; 
+  left: 0; 
+  width: 100%; 
+  height: 88px;
+  padding: 0 7vw; 
+  display: flex; 
+  align-items: center; 
+  justify-content: space-between;
+  background: rgba(11, 9, 7, 0.85); 
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border-bottom: 1px solid rgba(238, 231, 223, 0.1); 
+  z-index: 9000;
+}
+
+.logo { 
+  font-size: 17px; 
+  font-weight: 800; 
+  letter-spacing: -0.05em; 
+  color: #eee7df; 
+}
+
+.logo span { 
+  font-family: "DM Mono", monospace; 
+  font-size: 0.68em; 
+  letter-spacing: 0.14em; 
+  margin-left: 5px; 
+  color: #c7a27a; 
+}
+
+.desktop-nav { 
+  display: flex; 
+  gap: 30px; 
+  margin-left: auto; 
+  margin-right: 35px; 
+}
+
+.nav-link { 
+  font: 11px "DM Mono", monospace; 
+  letter-spacing: 0.12em; 
+  text-transform: uppercase; 
+  opacity: 0.6; 
+  transition: opacity 0.3s, color 0.3s; 
+}
+
+.nav-link:hover { 
+  opacity: 1; 
+  color: #c7a27a; 
+}
+
+.nav-order { 
+  font: 11px "DM Mono", monospace; 
+  letter-spacing: 0.1em; 
+  text-transform: uppercase; 
+  display: flex; 
+  gap: 10px; 
+  transition: color 0.3s; 
+}
+
+.nav-order:hover { 
+  color: #c7a27a; 
+}
+
+.nav-order span { 
+  transition: transform 0.3s; 
+}
+
+.nav-order:hover span { 
+  transform: translate(3px, -3px); 
+}
+
+
+/* =========================================================
+   3. MARQUEE (Teks Berjalan)
+========================================================= */
+.marquee { 
+  margin-top: 88px; 
+  overflow: hidden; 
+  border-bottom: 1px solid rgba(238, 231, 223, 0.1); 
+  padding: 20px 0; 
+}
+
+.marquee-track { 
+  display: flex; 
+  align-items: center; 
+  gap: 40px; 
+  width: max-content; 
+  animation: marqueeScroll 20s linear infinite; 
+}
+
+.marquee span { 
+  font-size: 40px; 
+  font-weight: 800; 
+  color: #eee7df; 
+}
+
+.marquee i { 
+  font-family: "Playfair Display", serif; 
+  font-size: 25px; 
+  color: #c7a27a; 
+}
+
+@keyframes marqueeScroll { 
+  to { transform: translateX(-50%); } 
+}
+
+
+/* =========================================================
+   4. FULL MENU HEADER
+========================================================= */
+.full-menu-page { 
+  position: relative; 
+  width: 100%; 
+  padding-bottom: 100px; 
+}
+
+.full-menu-inner { 
+  padding: 60px 7vw 100px; 
+}
+
+.full-menu-header { 
+  margin-bottom: 30px; 
+}
+
+.full-menu-header h2 {
+  font-size: clamp(60px, 9vw, 130px); 
+  font-weight: 800; 
+  line-height: 0.85; 
+  letter-spacing: -0.08em;
+}
+
+.full-menu-header h2 em { 
+  font-family: "Playfair Display", serif; 
+  font-weight: 500; 
+  font-style: italic; 
+  color: #eee7df; 
+}
+
+
+/* =========================================================
+   5. TOMBOL FILTER (Kategori)
+========================================================= */
+.menu-filter { 
+  display: flex; 
+  gap: 10px; 
+  flex-wrap: wrap; 
+  padding: 20px 0 40px; 
+  margin-bottom: 20px; 
+  border-bottom: 1px solid rgba(238, 231, 223, 0.1); 
+}
+
+.menu-category {
+  background: transparent; 
+  border: 1px solid rgba(238, 231, 223, 0.2);
+  padding: 12px 18px; 
+  font: 10px "DM Mono", monospace; 
+  letter-spacing: 0.1em;
+  color: #eee7df; 
+  cursor: pointer; 
+  transition: all 0.3s ease; 
+  text-transform: uppercase;
+}
+
+.menu-category:hover { 
+  border-color: #eee7df; 
+  background: rgba(238, 231, 223, 0.05); 
+}
+
+.menu-category.active { 
+  background: #eee7df; 
+  color: #0b0907; 
+  border-color: #eee7df; 
+  font-weight: bold; 
+}
+
+
+/* =========================================================
+   6. LAYOUT KATEGORI (Grup & Subjudul)
+========================================================= */
+.menu-group {
+  margin-bottom: 100px; /* Jarak antar kategori ke bawah */
+}
+
+.group-title-wrap {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  margin-bottom: 40px;
+}
+
+.group-title {
+  font-family: "Manrope", sans-serif;
+  font-size: clamp(28px, 3vw, 40px);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  white-space: nowrap;
+}
+
+.group-line {
+  flex: 1;
+  height: 1px;
+  background: rgba(238, 231, 223, 0.15);
+}
+
+
+/* =========================================================
+   7. GRID & CARD MENU
+========================================================= */
+.coffee-grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 40px 20px;
+}
+
+.coffee-item { 
+  position: relative; 
+  transition: transform 0.3s ease, opacity 0.4s ease; 
+}
+
+/* Kotak Gambar */
+.coffee-image-wrap { 
+  height: 240px; 
+  overflow: hidden; 
+  background: #14100d; 
+  position: relative; 
+}
+
+.coffee-image { 
+  width: 100%; 
+  height: 100%; 
+  object-fit: cover; 
+  transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1); 
+}
+
+.coffee-item:hover .coffee-image { 
+  transform: scale(1.08); 
+}
+
+/* Tag Kategori di Gambar */
+.coffee-tag { 
+  position: absolute; 
+  right: 10px; 
+  top: 10px; 
+  border: 1px solid rgba(238, 231, 223, 0.4); 
+  padding: 6px 10px; 
+  font: 8px "DM Mono", monospace; 
+  letter-spacing: 0.1em; 
+  background: rgba(11, 9, 7, 0.7); 
+  backdrop-filter: blur(5px);
+}
+
+/* Placeholder (Untuk Menu Kosong) */
+.order-placeholder {
+  width: 100%; 
+  height: 100%;
+  display: flex; 
+  align-items: center; 
+  justify-content: center;
+  font: 10px "DM Mono", monospace; 
+  letter-spacing: 0.2em;
+  color: rgba(238, 231, 223, 0.2);
+  background: repeating-linear-gradient(45deg, #100d0a, #100d0a 10px, #14100d 10px, #14100d 20px); 
+  border: 1px solid rgba(238, 231, 223, 0.05);
+}
+
+/* Info Teks */
+.coffee-info { 
+  margin-top: 18px; 
+  display: flex; 
+  flex-direction: column; 
+  gap: 6px; 
+}
+
+.coffee-main h3 { 
+  font-size: 16px; 
+  font-weight: 600; 
+  letter-spacing: -0.02em; 
+  transition: color 0.3s; 
+}
+
+.coffee-item:hover .coffee-main h3 { 
+  color: #c7a27a; 
+}
+
+.coffee-main p { 
+  font: 9px "DM Mono", monospace; 
+  opacity: 0.5; 
+  text-transform: uppercase; 
+  letter-spacing: 0.05em; 
+}
+
+.coffee-price { 
+  font: 13px "DM Mono", monospace; 
+  margin-top: 8px; 
+  color: rgba(238, 231, 223, 0.9); 
+}
+
+
+/* =========================================================
+   8. ANIMASI (Reveal & Filter)
+========================================================= */
+.reveal { 
+  opacity: 0; 
+  transform: translateY(40px); 
+  transition: opacity 0.8s ease, transform 0.8s ease; 
+}
+
+.reveal.visible { 
+  opacity: 1; 
+  transform: translateY(0); 
+}
+
+/* Animasi saat grup difilter */
+@keyframes cardFadeIn {
+  0% { opacity: 0; transform: translateY(20px) scale(0.95); }
+  100% { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.menu-group.animate-in {
+  animation: cardFadeIn 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+}
+
+
+/* =========================================================
+   9. KURSOR CUSTOM (Smoke)
+========================================================= */
+.cursor { 
+  position: fixed; 
+  left: 0; 
+  top: 0; 
+  width: 8px; 
+  height: 8px; 
+  border-radius: 50%; 
+  background: #eee7df; 
+  pointer-events: none; 
+  z-index: 9999; 
+  transform: translate(-50%, -50%); 
+  mix-blend-mode: difference; 
+  transition: width 0.25s, height 0.25s; 
+}
+
+.cursor.hover { 
+  width: 17px; 
+  height: 17px; 
+}
+
+.cursor-smoke { 
+  position: fixed; 
+  border-radius: 50%; 
+  pointer-events: none; 
+  z-index: 9998; 
+  background: rgba(238, 231, 223, 0.25); 
+  filter: blur(5px); 
+  transform: translate(-50%, -50%); 
+}
+
+
+/* =========================================================
+   10. RESPONSIVE (Tablet & HP)
+========================================================= */
+@media (max-width: 1200px) { 
+  .coffee-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); } 
+}
+
+@media (max-width: 900px) { 
+  .coffee-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } 
+  .desktop-nav { display: none; } 
+  .coffee-image-wrap { height: 200px; }
+}
+
+@media (max-width: 650px) { 
+  .coffee-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px 15px; } 
+  .full-menu-inner { padding: 40px 5vw; } 
+  .full-menu-header h2 { font-size: 20vw; }
+  .coffee-image-wrap { height: 160px; }
+  .menu-filter { gap: 8px; }
+  .menu-category { padding: 8px 12px; font-size: 9px; }
+  .menu-group { margin-bottom: 60px; }
+  .group-title { font-size: 24px; }
+}
+
+/* =========================================================
+   ANIMASI FILTER (FADE)
+========================================================= */
+.menu-group {
+  opacity: 1;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.full-menu-inner {
+  transition: min-height 0.3s ease;
+}
+
+.is-hidden {
+  display: none !important;
+}
+
+/* =========================================================
+   ANIMASI TRANSISI FILTER MENU
+========================================================= */
+.menu-group {
+  opacity: 1;
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+/* Class untuk menyembunyikan grup secara mutlak */
+.is-hidden {
+  display: none !important;
+}
+
+/* Keyframe animasi saat menu muncul */
+@keyframes slideUpFade {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Class yang memicu animasi muncul */
+.menu-group.animate-in {
+  animation: slideUpFade 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+}
